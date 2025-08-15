@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACENCAS | Eina de prevenció activa</title>
+    
+    <!-- PWA Manifest & Icons -->
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="logo.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="logo.ico">
+    <meta name="theme-color" content="#f97316">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Nunito:wght@700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        :root {
+            --primary-orange: #f97316;
+            --primary-orange-dark: #ea580c;
+            --primary-orange-light: #fff7ed;
+            --text-main: #1f2937;
+            --text-light: #64748b;
+            --background-light: #f8fafc;
+            --light-green-bg: #f0fdf4;
+            --light-green-text: #166534;
+            --light-green-hover: #dcfce7;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-main);
+        }
+        
+        .font-nunito {
+            font-family: 'Nunito', sans-serif;
+        }
+
+        .page, .content-section { 
+            display: none; 
+        }
+        
+        .active-page, .active-section {
+            display: block;
+            animation: fadeIn 0.4s ease-in-out;
+        }
+        
+        .page-centered.active-page {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .btn-primary {
+            background-color: var(--primary-orange);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 14px 0 rgba(249, 115, 22, 0.2);
+        }
+        .btn-primary:hover {
+            background-color: var(--primary-orange-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px 0 rgba(249, 115, 22, 0.25);
+        }
+        .btn-secondary {
+            background-color: #e2e8f0;
+            color: #475569;
+            padding: 8px 16px;
+            border-radius: 0.5rem;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .btn-secondary:hover {
+            background-color: #cbd5e1;
+        }
+        .btn-danger {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+        .btn-danger:hover {
+            background-color: #fecaca;
+        }
+        .btn-green {
+            background-color: var(--light-green-bg);
+            color: var(--light-green-text);
+        }
+        .btn-green:hover {
+            background-color: var(--light-green-hover);
+        }
+
+        .card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.05), 0 2px 4px -2px rgb(0 0 0 / 0.05);
+            border: 1px solid #e5e7eb;
+        }
+
+        .nav-link.active {
+            background-color: var(--primary-orange-light);
+            color: var(--primary-orange);
+            font-weight: 600;
+        }
+        
+        details > summary { list-style: none; cursor: pointer; }
+        details > summary::-webkit-details-marker { display: none; }
+        details .arrow { transition: transform 0.2s; }
+        details[open] .arrow { transform: rotate(90deg); }
+
+        textarea, input[type="text"], input[type="email"], input[type="password"], input[type="date"] {
+            font-family: 'Inter', sans-serif;
+            border: 1px solid #d1d5db;
+            transition: all 0.2s ease-in-out;
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            width: 100%;
+        }
+        textarea:focus, input:focus {
+            --tw-ring-color: var(--primary-orange);
+            border-color: var(--primary-orange);
+            box-shadow: 0 0 0 1px var(--primary-orange);
+            outline: none;
+        }
+        
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid var(--primary-orange);
+            padding-left: 1rem;
+        }
+        
+        /* Estils per a la impressió */
+        @media print {
+            body, html {
+                background-color: white;
+            }
+            .no-print {
+                display: none !important;
+            }
+            #print-area {
+                display: block !important;
+                visibility: visible !important;
+                position: static;
+                width: 100%;
+                padding: 0;
+                margin: 0;
+            }
+            #print-area * {
+                visibility: visible;
+            }
+            .print-card {
+                page-break-inside: avoid;
+                box-shadow: none !important;
+                border: 1px solid #ccc !important;
+                margin-bottom: 1.5rem;
+            }
+            .print-page-break {
+                page-break-before: always;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50">
+
+    <!-- Pàgina d'inici (Landing) -->
+    <div id="landing-page" class="page page-centered flex items-center justify-center min-h-screen">
+        <div class="max-w-3xl mx-auto text-center p-8">
+            <div class="flex justify-center items-center gap-6 mb-8">
+                <img src="logo.ico" alt="Logo ACENCAS" class="h-40 w-40">
+            </div>
+            <h1 class="font-nunito text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
+                <span class="block">Eina de prevenció activa</span>
+                <span class="block text-orange-500 mt-2">ACENCAS Prevenció Activa</span>
+            </h1>
+            <p class="mt-6 max-w-2xl mx-auto text-lg leading-8 text-slate-600">El teu espai personal i segur per entendre't millor i construir un camí de recuperació sòlid i conscient.</p>
+            <div class="mt-10 flex items-center justify-center gap-x-6">
+                <button data-page="login-page" class="btn-primary text-lg">Entrar o Registrar-se</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pàgina d'inici de sessió / Registre -->
+    <div id="login-page" class="page page-centered flex items-center justify-center min-h-screen">
+        <div class="max-w-md w-full mx-auto p-4">
+            <div class="flex justify-center items-center gap-4 mb-6">
+                <img src="logo.ico" alt="Logo ACENCAS" class="h-28 w-28">
+            </div>
+            <div id="auth-container">
+                <h2 id="auth-title" class="font-nunito text-3xl font-bold tracking-tight text-gray-900 text-center">Accedeix al teu compte</h2>
+                <p id="auth-subtitle" class="mt-2 text-center text-slate-600">Introdueix el teu correu i contrasenya.</p>
+                <form id="auth-form" class="mt-8 card">
+                    <div class="space-y-6">
+                        <div>
+                            <label for="auth-email" class="block text-sm font-medium leading-6 text-gray-900">Correu electrònic</label>
+                            <input type="email" id="auth-email" name="email" required autocomplete="email" class="mt-2">
+                        </div>
+                        <div>
+                            <label for="auth-password" class="block text-sm font-medium leading-6 text-gray-900">Contrasenya</label>
+                            <input type="password" id="auth-password" name="password" required autocomplete="current-password" class="mt-2">
+                        </div>
+                        <div id="auth-error" class="hidden text-sm text-red-600 bg-red-50 p-3 rounded-lg"></div>
+                        <button id="auth-submit-button" type="submit" class="btn-primary w-full text-base">Iniciar sessió</button>
+                    </div>
+                </form>
+                <p class="mt-6 text-center text-sm text-slate-500">
+                    <span id="auth-toggle-text">No tens un compte?</span>
+                    <a href="#" id="auth-toggle-link" class="font-semibold text-orange-600 hover:text-orange-500">Registra't</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panell Principal de l'Aplicació -->
+    <div id="dashboard-page" class="page">
+        <div class="flex min-h-screen">
+            <!-- Barra de navegació lateral (desktop) -->
+            <aside id="sidebar" class="w-72 bg-white border-r border-slate-200 p-4 flex-col justify-between hidden md:flex no-print">
+                <div>
+                    <div class="flex items-center justify-center gap-4 mb-4">
+                        <img src="logo.ico" alt="Logo ACENCAS" class="w-24 h-24">
+                    </div>
+                    <h1 class="text-lg font-bold text-gray-800 text-center">ACENCAS Prevenció Activa (APA)</h1>
+                    <nav id="main-nav-menu" class="mt-6">
+                        <!-- El contingut del menú es generarà amb JS -->
+                    </nav>
+                </div>
+                <div class="space-y-2">
+                    <button id="install-pwa-button" class="hidden w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-green-100 hover:bg-green-200 text-green-800 transition-colors">
+                        <i data-lucide="download-cloud" class="w-5 h-5"></i><span>Instal·lar App</span>
+                    </button>
+                    <button id="archive-button" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">
+                        <i data-lucide="save" class="w-5 h-5"></i><span>Guardar i arxivar manual</span>
+                    </button>
+                    <button data-page="profile-page" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-100 text-slate-600 transition-colors">
+                        <i data-lucide="user" class="w-5 h-5"></i><span>El meu perfil i historial</span>
+                    </button>
+                    <button id="logout-button" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg hover:bg-red-50 text-red-600 transition-colors">
+                        <i data-lucide="log-out" class="w-5 h-5"></i><span>Tancar sessió</span>
+                    </button>
+                </div>
+            </aside>
+
+            <!-- Contingut principal -->
+            <main id="main-content" class="flex-1 p-4 sm:p-6 md:p-8 lg:p-10">
+                <!-- El contingut de les seccions es carregarà aquí -->
+            </main>
+        </div>
+        
+        <!-- Menú mòbil (ocult per defecte) -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white z-50 p-4 hidden md:hidden no-print flex flex-col">
+            <div class="flex justify-between items-center mb-8 flex-shrink-0">
+                <h1 class="text-lg font-bold text-gray-800">Menú</h1>
+                <button id="close-mobile-menu" class="p-2">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <nav id="mobile-nav-menu" class="flex-grow overflow-y-auto"></nav>
+            <div class="mt-auto space-y-2 flex-shrink-0 pt-4">
+                 <button id="install-pwa-button-mobile" class="hidden w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-green-100 hover:bg-green-200 text-green-800 transition-colors">
+                    <i data-lucide="download-cloud" class="w-5 h-5"></i><span>Instal·lar App</span>
+                </button>
+                 <button id="archive-button-mobile" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">
+                    <i data-lucide="save" class="w-5 h-5"></i><span>Guardar i arxivar manual</span>
+                </button>
+                <button data-page="profile-page" id="profile-button-mobile" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-100 text-slate-600 transition-colors">
+                    <i data-lucide="user" class="w-5 h-5"></i><span>El meu perfil i historial</span>
+                </button>
+                <button id="logout-button-mobile" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg hover:bg-red-50 text-red-600 transition-colors">
+                    <i data-lucide="log-out" class="w-5 h-5"></i><span>Tancar sessió</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pàgina de Perfil i Historial -->
+    <div id="profile-page" class="page max-w-4xl mx-auto py-10 px-4">
+        <div class="space-y-8">
+            <div class="card w-full">
+                <h1 class="text-3xl font-bold mb-6">El meu perfil</h1>
+                <form id="profile-form" class="space-y-4">
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label for="profile-name" class="block text-sm font-medium text-gray-700">Nom</label>
+                            <input type="text" id="profile-name" class="mt-1">
+                        </div>
+                        <div>
+                            <label for="profile-surname" class="block text-sm font-medium text-gray-700">Cognoms</label>
+                            <input type="text" id="profile-surname" class="mt-1">
+                        </div>
+                    </div>
+                    <div>
+                        <label for="profile-phone" class="block text-sm font-medium text-gray-700">Telèfon</label>
+                        <input type="text" id="profile-phone" class="mt-1">
+                    </div>
+                    <div>
+                        <label for="profile-email" class="block text-sm font-medium text-gray-700">Correu electrònic</label>
+                        <input type="email" id="profile-email" class="mt-1 bg-slate-100" readonly>
+                    </div>
+                    <div class="pt-4">
+                         <button type="submit" class="btn-primary">Desar canvis del perfil</button>
+                    </div>
+                </form>
+                
+                <div class="border-t pt-6 mt-6">
+                    <h2 class="text-2xl font-bold mb-4">Notificacions</h2>
+                    <div class="flex items-center justify-between">
+                        <p class="text-slate-600">Vull rebre notificacions i recordatoris.</p>
+                        <button id="notifications-toggle" class="btn-secondary btn-green">Activar notificacions</button>
+                    </div>
+                </div>
+
+                <div class="border-t pt-6 mt-6">
+                    <h2 class="text-2xl font-bold mb-4">Comptador de dies</h2>
+                    <p class="text-slate-500 mb-4">Selecciona l'últim dia de consum per portar un registre dels teus dies guanyats a l'addicció.</p>
+                    <div class="max-w-xs space-y-3">
+                        <label for="last-consumption-date" class="font-medium">El meu últim dia de consum va ser:</label>
+                        <input type="date" id="last-consumption-date">
+                        <div class="bg-green-100 text-green-800 text-center p-4 rounded-lg">
+                            <p class="text-lg">Dies guanyats a l'addicció</p>
+                            <p id="days-won-counter" class="text-4xl font-bold">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card w-full">
+                <h2 class="text-2xl font-bold mb-4">Historial de manuals</h2>
+                <p class="text-slate-500 mb-4">Aquí pots veure tots els manuals que has anat guardant. Pots imprimir-ne o esborrar-ne qualsevol per veure la teva evolució.</p>
+                <div id="manuals-history-list" class="space-y-3">
+                    <!-- L'historial es carregarà aquí -->
+                </div>
+            </div>
+
+            <div class="card w-full">
+                <h2 class="text-2xl font-bold mb-4">Contacte ACENCAS Prevenció Activa</h2>
+                <p class="text-slate-500 mb-6">Estem aquí per ajudar-te. No dubtis a contactar amb nosaltres.</p>
+                <div class="space-y-4">
+                    <p class="flex items-center gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-orange-500"></i>Carrer Sicília nº 253, Princ. 2ª, 08025 Barcelona</p>
+                    <p class="flex items-center gap-3"><i data-lucide="globe" class="w-5 h-5 text-orange-500"></i><a href="https://acencasprevencio.org" target="_blank" class="text-orange-600 hover:underline">acencasprevencio.org</a></p>
+                    <div class="grid md:grid-cols-2 gap-4 pt-4 border-t">
+                        <a href="mailto:admin@acencasprevencio.org" class="btn-secondary btn-green w-full"><i data-lucide="mail" class="w-5 h-5 mr-2"></i>Enviar correu</a>
+                        <a href="tel:+34931413814" class="btn-secondary btn-green w-full"><i data-lucide="phone" class="w-5 h-5 mr-2"></i>Trucar a APA (931 413 814)</a>
+                        <a href="tel:+34676692143" class="btn-secondary btn-green w-full"><i data-lucide="smartphone" class="w-5 h-5 mr-2"></i>Trucar a Francesc Perendreu</a>
+                        <a href="tel:900900540" class="btn-secondary btn-green w-full"><i data-lucide="phone-call" class="w-5 h-5 mr-2"></i>Trucar a Línia Verda (900 900 540)</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-8 flex gap-4">
+                <button data-page="dashboard-page" class="btn-primary">Tornar al manual actiu</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Àrea d'impressió (oculta) -->
+    <div id="print-area" class="hidden"></div>
+
+
+    <!-- Vimeo Player API -->
+    <script src="https://player.vimeo.com/api/player.js"></script>
+
+    <!-- Firebase & App Logic -->
+    <script type="module">
+        // --- Importacions de Firebase ---
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { 
+            getAuth, 
+            onAuthStateChanged, 
+            createUserWithEmailAndPassword, 
+            signInWithEmailAndPassword, 
+            signOut 
+        } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, doc, setDoc, getDoc, onSnapshot, updateDoc, addDoc, collection, query, getDocs, orderBy, arrayUnion, arrayRemove, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-messaging.js";
+
+        // --- CONFIGURACIÓ DE FIREBASE ---
+        const firebaseConfig = {
+            apiKey: "AIzaSyDIjNlfgFzT3ytEI3dEmqG5fDfeFuCMONg",
+            authDomain: "acencas-prevencio-activa-apa.firebaseapp.com",
+            projectId: "acencas-prevencio-activa-apa",
+            storageBucket: "acencas-prevencio-activa-apa.firebasestorage.app",
+            messagingSenderId: "96053706134",
+            appId: "1:96053706134:web:1fcab6e95897b51163b1b7",
+            measurementId: "G-3885EB9T7L"
+        };
+        
+        // --- Inicialització de Firebase ---
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const messaging = getMessaging(app);
+
+        // --- Espera que el DOM estigui completament carregat per executar el codi ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- Variables Globals ---
+            let currentUserId = null;
+            let activeManualId = null;
+            let userDataUnsubscribe; 
+            let appData = {};
+            let isLoginMode = true; // Controla si estem en mode login o registre
+            const allValues = ['Honestedat', 'Connexió', 'Respecte', 'Creativitat', 'Aprenentatge', 'Salut', 'Seguretat', 'Aventura', 'Compassió', 'Llibertat', 'Família', 'Amistat', 'Creixement', 'Pau interior', 'Diversió'];
+            const manualSectionsOrder = ['manual_intro', 'partida', 'patrons', 'eines', 'suport', 'futur'];
+
+            // --- Elements del DOM d'Autenticació ---
+            const authForm = document.getElementById('auth-form');
+            const authEmailInput = document.getElementById('auth-email');
+            const authPasswordInput = document.getElementById('auth-password');
+            const authErrorDiv = document.getElementById('auth-error');
+            const authTitle = document.getElementById('auth-title');
+            const authSubtitle = document.getElementById('auth-subtitle');
+            const authSubmitButton = document.getElementById('auth-submit-button');
+            const authToggleLink = document.getElementById('auth-toggle-link');
+            const authToggleText = document.getElementById('auth-toggle-text');
+
+            // --- FUNCIÓ DE SUPORT (DEBOUNCE) ---
+            const debounce = (func, delay) => {
+                let timeout;
+                return function(...args) {
+                    clearTimeout(timeout);
+                    timeout = setTimeout(() => func.apply(this, args), delay);
+                };
+            };
+
+            // --- Gestió de Pàgines i Navegació ---
+            const pages = document.querySelectorAll('.page');
+            const showPage = (pageId) => {
+                pages.forEach(page => {
+                    page.style.display = 'none';
+                    page.classList.remove('active-page');
+                });
+                const newPage = document.getElementById(pageId);
+                if (newPage) {
+                    if (newPage.classList.contains('page-centered')) {
+                        newPage.style.display = 'flex';
+                    } else {
+                        newPage.style.display = 'block';
+                    }
+                    newPage.classList.add('active-page');
+                }
+                window.scrollTo(0, 0);
+            };
+            
+            document.querySelectorAll('[data-page]').forEach(button => {
+                button.addEventListener('click', () => showPage(button.dataset.page));
+            });
+
+            // --- Gestió del Menú Mòbil ---
+            const mobileMenu = document.getElementById('mobile-menu');
+            document.body.addEventListener('click', function(event) {
+                if (event.target.closest('#mobile-menu-button')) {
+                    mobileMenu.classList.remove('hidden');
+                } else if (event.target.closest('#close-mobile-menu')) {
+                    mobileMenu.classList.add('hidden');
+                }
+            });
+
+            // --- Lògica d'Autenticació (Correu i Contrasenya) ---
+            
+            // Funció per canviar entre mode Login i Registre
+            const toggleAuthMode = () => {
+                isLoginMode = !isLoginMode;
+                authErrorDiv.classList.add('hidden');
+                authForm.reset();
+
+                if (isLoginMode) {
+                    authTitle.textContent = 'Accedeix al teu compte';
+                    authSubtitle.textContent = 'Introdueix el teu correu i contrasenya.';
+                    authSubmitButton.textContent = 'Iniciar sessió';
+                    authToggleText.textContent = 'No tens un compte?';
+                    authToggleLink.textContent = "Registra't";
+                } else {
+                    authTitle.textContent = 'Crea un nou compte';
+                    authSubtitle.textContent = 'Introdueix el teu correu i una contrasenya segura.';
+                    authSubmitButton.textContent = 'Registrar-se';
+                    authToggleText.textContent = 'Ja tens un compte?';
+                    authToggleLink.textContent = 'Inicia sessió';
+                }
+            };
+            
+            authToggleLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                toggleAuthMode();
+            });
+
+            // Funció per mostrar errors d'autenticació
+            const showAuthError = (errorCode) => {
+                let message = "S'ha produït un error inesperat. Torna a intentar-ho.";
+                switch (errorCode) {
+                    case 'auth/user-not-found':
+                    case 'auth/wrong-password':
+                        message = 'El correu electrònic o la contrasenya són incorrectes.';
+                        break;
+                    case 'auth/email-already-in-use':
+                        message = 'Aquest correu electrònic ja està registrat. Prova d\'iniciar sessió.';
+                        break;
+                    case 'auth/weak-password':
+                        message = 'La contrasenya ha de tenir com a mínim 6 caràcters.';
+                        break;
+                    case 'auth/invalid-email':
+                        message = 'El format del correu electrònic no és vàlid.';
+                        break;
+                }
+                authErrorDiv.textContent = message;
+                authErrorDiv.classList.remove('hidden');
+            };
+
+            // Gestor de l'enviament del formulari
+            authForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                authErrorDiv.classList.add('hidden');
+                const email = authEmailInput.value;
+                const password = authPasswordInput.value;
+
+                try {
+                    if (isLoginMode) {
+                        // Iniciar sessió
+                        await signInWithEmailAndPassword(auth, email, password);
+                    } else {
+                        // Registrar nou usuari
+                        const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+                        await setupNewUser(userCredential.user);
+                    }
+                    // onAuthStateChanged s'encarregarà de redirigir a la pàgina del dashboard
+                } catch (error) {
+                    console.error("Error d'autenticació:", error.code);
+                    showAuthError(error.code);
+                }
+            });
+
+            // Funció per configurar un nou usuari a Firestore
+            const setupNewUser = async (user) => {
+                const userDocRef = doc(db, "users", user.uid);
+                const userDoc = await getDoc(userDocRef);
+                if (!userDoc.exists()) {
+                    // Crea el primer manual per al nou usuari
+                    const newManualRef = await addDoc(collection(db, `users/${user.uid}/manuals`), {
+                        createdAt: new Date(),
+                        motivations: [], values: { selected: [], details: {} }, triggers: [], trapThoughts: [], selfCarePlan: {}, supportNetwork: [], crisisPlan: { signal: '', action: '', contact: '', value: '' }, weeklyReview: '', gratitudeJournal: []
+                    });
+                    // Crea el document de l'usuari
+                    await setDoc(userDocRef, { 
+                        name: '', 
+                        surname: '', 
+                        phone: '', 
+                        email: user.email, 
+                        createdAt: new Date(), 
+                        activeManualId: newManualRef.id, 
+                        lastConsumptionDate: null 
+                    });
+                }
+            };
+
+            // Observador de l'estat d'autenticació
+            onAuthStateChanged(auth, user => {
+                if (user) {
+                    currentUserId = user.uid;
+                    loadUserProfile(user);
+                    showPage('dashboard-page');
+                } else {
+                    currentUserId = null;
+                    if (userDataUnsubscribe) userDataUnsubscribe();
+                    showPage('landing-page');
+                }
+            });
+            
+            document.getElementById('logout-button').addEventListener('click', () => signOut(auth));
+            document.getElementById('logout-button-mobile').addEventListener('click', () => signOut(auth));
+            
+            async function loadUserProfile(user) {
+                const userDocRef = doc(db, "users", user.uid);
+                try {
+                    const userDoc = await getDoc(userDocRef);
+                    if (userDoc.exists()) {
+                        const data = userDoc.data();
+                        document.getElementById('profile-name').value = data.name || '';
+                        document.getElementById('profile-surname').value = data.surname || '';
+                        document.getElementById('profile-phone').value = data.phone || '';
+                        document.getElementById('profile-email').value = data.email || '';
+                        
+                        const dateInput = document.getElementById('last-consumption-date');
+                        if (data.lastConsumptionDate) {
+                            dateInput.value = data.lastConsumptionDate;
+                            updateSobrietyCounter(data.lastConsumptionDate);
+                        }
+                        dateInput.addEventListener('input', (e) => {
+                            const newDate = e.target.value;
+                            updateDoc(userDocRef, { lastConsumptionDate: newDate });
+                            updateSobrietyCounter(newDate);
+                        });
+
+                        activeManualId = data.activeManualId;
+                        if (activeManualId) {
+                            setupRealtimeListener(user.uid, activeManualId);
+                        } else {
+                            console.error("No s'ha trobat un manual actiu. Creant un de nou.");
+                            await createNewManual(user.uid);
+                        }
+                        loadManualsHistory(user.uid);
+                    }
+                } catch (error) {
+                    console.error("Error loading user profile:", error);
+                }
+            }
+
+            document.getElementById('profile-form').addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const userDocRef = doc(db, "users", currentUserId);
+                try {
+                    await updateDoc(userDocRef, {
+                        name: document.getElementById('profile-name').value,
+                        surname: document.getElementById('profile-surname').value,
+                        phone: document.getElementById('profile-phone').value
+                    });
+                    alert("Perfil actualitzat correctament!");
+                } catch (error) {
+                    console.error("Error updating profile: ", error);
+                    alert("No s'ha pogut actualitzar el perfil.");
+                }
+            });
+            
+            function updateSobrietyCounter(dateString) {
+                if (!dateString) {
+                    document.getElementById('days-won-counter').textContent = '0';
+                    return;
+                }
+                const lastDate = new Date(dateString);
+                const today = new Date();
+                lastDate.setHours(0, 0, 0, 0);
+                today.setHours(0, 0, 0, 0);
+                
+                const diffTime = Math.abs(today - lastDate);
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                document.getElementById('days-won-counter').textContent = diffDays;
+            }
+
+            // --- Lògica del Manual Interactiu ---
+            function setupRealtimeListener(uid, manualId) {
+                const manualDocRef = doc(db, `users/${uid}/manuals`, manualId);
+                if (userDataUnsubscribe) userDataUnsubscribe();
+                userDataUnsubscribe = onSnapshot(manualDocRef, (doc) => {
+                    if (doc.exists()) {
+                        appData = doc.data();
+                        renderAppContent();
+                    } else {
+                        console.error(`El manual actiu amb ID ${manualId} no existeix.`);
+                    }
+                }, error => console.error("Error in onSnapshot listener:", error));
+            }
+            
+            const navigateToSection = (key) => {
+                document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                document.querySelectorAll(`.nav-link[data-section="${key}"]`).forEach(l => l.classList.add('active'));
+                
+                document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active-section'));
+                const activeContent = document.querySelector(`#main-content .content-section[data-section="${key}"]`);
+                if(activeContent) activeContent.classList.add('active-section');
+                
+                document.getElementById('mobile-menu').classList.add('hidden');
+                bindEventListeners();
+            };
+
+            function renderAppContent() {
+                const mainContent = document.getElementById('main-content');
+                const navMenu = document.getElementById('main-nav-menu');
+                const mobileNavMenu = document.getElementById('mobile-nav-menu');
+                const activeSectionKey = mainContent.querySelector('.active-section')?.dataset.section || 'manual_intro';
+                
+                const headerHTML = `
+                    <div class="md:hidden flex justify-between items-center mb-6 no-print">
+                        <div class="flex items-center gap-4">
+                            <img src="logo.ico" alt="Logo ACENCAS" class="w-16 h-16">
+                        </div>
+                        <button id="mobile-menu-button" class="p-2"><i data-lucide="menu" class="w-6 h-6"></i></button>
+                    </div>
+                `;
+                
+                mainContent.innerHTML = headerHTML;
+                navMenu.innerHTML = '';
+                mobileNavMenu.innerHTML = '';
+
+                const sections = {
+                    manual_intro: { title: "El meu manual", icon: "book-open", content: getManualIntroContent, type: 'manual' },
+                    partida: { title: "Punt de partida", icon: "flag", content: getPartidaContent, type: 'manual' },
+                    patrons: { title: "Comprenent patrons", icon: "map", content: getPatronsContent, type: 'manual' },
+                    eines: { title: "Caixa d'eines", icon: "box", content: getEinesContent, type: 'manual' },
+                    suport: { title: "Sistema de suport", icon: "users", content: getSupportContent, type: 'manual' },
+                    futur: { title: "Mirant cap al futur", icon: "trending-up", content: getFuturContent, type: 'manual' },
+                    teoria_intro: { title: "Introducció teòrica", icon: "book-open", content: getTeoriaIntroContent, type: 'teoria' },
+                    definicio: { title: "Què són les addiccions?", icon: "help-circle", content: getDefinicioContent, type: 'teoria' },
+                    marlatt: { title: "El model de recaiguda", icon: "git-merge", content: getMarlattContent, type: 'teoria' },
+                    act: { title: "Viure segons els valors", icon: "compass", content: getActContent, type: 'teoria' },
+                    especifics: { title: "Addiccions específiques", icon: "crosshair", content: getEspecificsContent, type: 'teoria' },
+                    taules: { title: "Taules resum", icon: "table-2", content: getTaulesContent, type: 'teoria' },
+                };
+
+                let navHTML = `
+                    <ul>
+                        <li><a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" data-section="manual_intro"><i data-lucide="book-open" class="w-5 h-5"></i><span>El meu manual</span></a></li>
+                        <li class="mt-4"><h2 class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Manual pràctic</h2></li>
+                        <ul class="mt-1 space-y-1">
+                            ${manualSectionsOrder.filter(k => k !== 'manual_intro').map(key => `<li><a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" data-section="${key}"><i data-lucide="${sections[key].icon}" class="w-5 h-5"></i><span>${sections[key].title}</span></a></li>`).join('')}
+                        </ul>
+                        <li class="mt-4"><h2 class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Marc teòric</h2></li>
+                        <ul class="mt-1 space-y-1">
+                             ${Object.keys(sections).filter(k => sections[k].type === 'teoria').map(key => `<li><a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" data-section="${key}"><i data-lucide="${sections[key].icon}" class="w-5 h-5"></i><span>${sections[key].title}</span></a></li>`).join('')}
+                        </ul>
+                    </ul>
+                `;
+                navMenu.innerHTML = navHTML;
+                mobileNavMenu.innerHTML = navHTML;
+
+                for (const key in sections) {
+                    const contentDiv = document.createElement('div');
+                    contentDiv.className = `content-section`;
+                    contentDiv.dataset.section = key;
+                    contentDiv.innerHTML = sections[key].content();
+                    mainContent.appendChild(contentDiv);
+                }
+                
+                navigateToSection(activeSectionKey);
+                
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        navigateToSection(e.currentTarget.dataset.section);
+                    });
+                });
+
+                lucide.createIcons();
+            }
+            
+            // --- Plantilles de Contingut HTML ---
+            function getSectionFooter(currentSectionKey) {
+                const currentIndex = manualSectionsOrder.indexOf(currentSectionKey);
+                if (currentIndex === -1) return ''; // Not a manual section
+
+                if (currentIndex === 0) { // First section
+                    const nextSectionKey = manualSectionsOrder[currentIndex + 1];
+                    return `<footer class="mt-8 pt-6 border-t"><button data-next-section="${nextSectionKey}" class="btn-primary next-section-btn">Comença el teu manual de prevenció de recaigudes <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i></button></footer>`;
+                } else if (currentIndex < manualSectionsOrder.length - 1) { // Middle sections
+                    const nextSectionKey = manualSectionsOrder[currentIndex + 1];
+                    return `<footer class="mt-8 pt-6 border-t"><button data-next-section="${nextSectionKey}" class="btn-primary next-section-btn">Continua a la següent secció <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i></button></footer>`;
+                } else { // Last section
+                    return `<footer class="mt-8 pt-6 border-t"><button id="save-and-print-btn" class="btn-primary"><i data-lucide="printer" class="w-5 h-5 mr-2"></i>Guardar i imprimir manual</button></footer>`;
+                }
+            }
+            
+            function getManualIntroContent() { 
+                return `
+                    <div class="card">
+                        <h1 class="section-title">El meu manual de prevenció de recaigudes</h1>
+                        <p class="text-lg text-slate-600 mb-6 leading-relaxed">Benvingut/da. Aquest no és un manual qualsevol. És un espai viu, una eina per a tu. Aquí et convertiràs en l'expert/a de la teva pròpia recuperació.</p>
+                        <div class="bg-orange-50 border-l-4 border-orange-400 text-orange-800 p-4 rounded-r-lg mb-8">
+                            <div class="flex">
+                                <div class="py-1"><i data-lucide="info" class="w-5 h-5 mr-3 text-orange-500"></i></div>
+                                <div>
+                                    <p class="font-semibold">Com funciona?</p>
+                                    <p class="text-sm">Navega per les seccions, completa els exercicis amb honestedat i sense culpar-te a tu mateix. El teu progrés es desa automàticament. Les teves dades són privades i només tu hi tens accés. Aquest és el teu espai segur.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Secció del vídeo inserida -->
+                        <div class="mb-8">
+                            <h2 class="text-2xl font-semibold mb-4">Com funciona l'aplicació: vídeo explicatiu</h2>
+                            <div style="padding:56.25% 0 0 0;position:relative;"><iframe src="https://player.vimeo.com/video/1105085235?title=0&byline=0&portrait=0&badge=0&autopause=0&player_id=0&app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="VÍDEO EXPLICATIU APP MANUAL PREVENCIÓ"></iframe></div>
+                        </div>
+
+                        ${getSectionFooter('manual_intro')}
+                    </div>
+                `; 
+            }
+            
+            function getPartidaContent() {
+                return `
+                    <h1 class="section-title">El meu punt de partida</h1>
+                    <div class="card mb-6">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="sparkles" class="w-6 h-6 text-orange-500"></i>Per què vull canviar?</h2>
+                        <p class="text-slate-600 mb-4">Reflexiona sobre les teves raons més profundes. No només el que vols evitar, sinó allò que vols construir. Quina vida vols viure?</p>
+                        <div class="flex gap-4 mb-4">
+                            <input id="motivation-input" type="text" placeholder="Escriu una motivació..." class="flex-grow p-2 border rounded-lg">
+                            <button id="add-motivation-button" class="btn-primary px-6">Afegir</button>
+                        </div>
+                        <div id="motivations-list" class="space-y-2"></div>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="compass" class="w-6 h-6 text-orange-500"></i>Els meus valors: la brúixola</h2>
+                        <p class="text-slate-600 mb-6">Els valors són la teva guia. T'indiquen la direcció quan el camí es fa difícil. Selecciona els 5-7 valors més importants per a tu.</p>
+                        <div id="values-selection" class="flex flex-wrap gap-2 mb-6"></div>
+                        <div id="values-details"></div>
+                        ${getSectionFooter('partida')}
+                    </div>
+                `;
+            }
+
+            function getPatronsContent() {
+                return `
+                    <h1 class="section-title">Comprenent els meus patrons</h1>
+                    <div class="card mb-6">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="alert-triangle" class="w-6 h-6 text-red-500"></i>Els meus senyals d'alerta</h2>
+                        <p class="text-slate-600 mb-4">Reconèixer els teus desencadenants és el primer pas per gestionar-los. Afegeix les situacions, emocions o sensacions que activen el teu impuls.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                            <input id="trigger-external" type="text" placeholder="Desencadenant extern (lloc, persona...)" class="p-2 border rounded-lg">
+                            <input id="trigger-internal" type="text" placeholder="Desencadenant intern (emoció, pensament...)" class="p-2 border rounded-lg">
+                            <input id="trigger-physical" type="text" placeholder="Senyal físic (nus a l'estómac...)" class="p-2 border rounded-lg">
+                        </div>
+                        <button id="add-trigger-button" class="btn-primary w-full">Afegir senyal d'alerta</button>
+                        <div id="triggers-list" class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+                    </div>
+                     <div class="card">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="message-square-warning" class="w-6 h-6 text-amber-500"></i>Els meus pensaments trampa</h2>
+                        <p class="text-slate-600 mb-4">Identifica els pensaments que et donen "permís" per caure. A la següent secció, aprendrem a respondre'ls.</p>
+                        <div class="flex gap-4 mb-4">
+                            <input id="trap-thought-input" type="text" placeholder="Escriu un pensament trampa..." class="flex-grow p-2 border rounded-lg">
+                            <button id="add-trap-thought-button" class="btn-primary px-6">Afegir</button>
+                        </div>
+                        <div id="trap-thoughts-list"></div>
+                        ${getSectionFooter('patrons')}
+                    </div>
+                `;
+            }
+            
+            function getEinesContent() { 
+                return `
+                    <h1 class="section-title">La meva caixa d'eines</h1>
+                    <div class="card mb-6">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="brain-circuit" class="w-6 h-6 text-orange-500"></i>Debatent amb els pensaments trampa</h2>
+                        <p class="text-slate-600 mb-4">Ara, torna als teus pensaments trampa i construeix una resposta més útil i realista per a cadascun. Fes-te aquestes preguntes:</p>
+                        <ul class="list-disc list-inside text-slate-600 space-y-1 text-sm mb-4">
+                            <li>Quines proves tinc a favor i en contra?</li>
+                            <li>Hi ha una altra manera de veure-ho?</li>
+                            <li>Pensar així m'acosta o m'allunya dels meus valors?</li>
+                            <li>Quin consell li donaria a un amic?</li>
+                        </ul>
+                        <div id="trap-thoughts-reframe-list"></div>
+                    </div>
+                     <div class="card mb-6">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="waves" class="w-6 h-6 text-teal-500"></i>Gestionant el *craving*</h2>
+                        <div class="grid md:grid-cols-2 gap-x-8 gap-y-4">
+                            <div>
+                                <h3 class="font-semibold text-lg mb-2">Urge Surfing: navegant l'onada</h3>
+                                <p class="text-slate-600 text-sm">L'impuls és com una onada: creix, arriba a un pic i baixa sola. No has de lluitar-hi, només "surfejar-la". Observa les sensacions al teu cos amb curiositat i respira. Passarà.</p>
+                            </div>
+                             <div>
+                                <h3 class="font-semibold text-lg mb-2">Estratègia DEMORA</h3>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start"><b class="font-bold text-orange-600 mr-2">D</b>emorar: espera 15 minuts. L'impuls baixarà.</li>
+                                    <li class="flex items-start"><b class="font-bold text-orange-600 mr-2">E</b>scapar: allunya't de la situació de risc.</li>
+                                    <li class="flex items-start"><b class="font-bold text-orange-600 mr-2">M</b>oure's: fes una activitat que et distregui.</li>
+                                    <li class="flex items-start"><b class="font-bold text-orange-600 mr-2">O</b>brir-se: accepta l'impuls sense actuar-lo (Urge Surfing).</li>
+                                    <li class="flex items-start"><b class="font-bold text-orange-600 mr-2">R</b>eemplaçar/Recordar: fes una activitat saludable i recorda els teus valors.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="card">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="calendar-heart" class="w-6 h-6 text-rose-500"></i>El meu pla d'autocura setmanal</h2>
+                        <p class="text-slate-600 mb-4">Planifica activitats que et nodreixin. Tracta aquestes cites amb tu mateix/a amb la mateixa importància que una reunió de feina.</p>
+                        <div id="self-care-planner"></div>
+                        ${getSectionFooter('eines')}
+                    </div>
+                `;
+            }
+
+            function getSupportContent() {
+                return `
+                    <h1 class="section-title">Construint el meu sistema de suport</h1>
+                    <div class="card mb-6">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="users" class="w-6 h-6 text-orange-500"></i>La meva xarxa de suport</h2>
+                        <p class="text-slate-600 mb-4">Identifica les persones i recursos que et poden ajudar. Sigues específic sobre com et poden ajudar.</p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <input id="support-name" type="text" placeholder="Nom (amic, familiar, terapeuta...)" class="p-2 border rounded-lg">
+                            <input id="support-contact" type="text" placeholder="Contacte (telèfon, email...)" class="p-2 border rounded-lg">
+                            <input id="support-role" type="text" placeholder="Com em pot ajudar?" class="md:col-span-2 p-2 border rounded-lg">
+                        </div>
+                        <button id="add-support-button" class="btn-primary w-full">Afegir a la xarxa</button>
+                        <div id="support-list" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="shield" class="w-6 h-6 text-emerald-500"></i>El meu pla d'acció per a moments crítics</h2>
+                        <p class="text-slate-600 mb-4">Crea una "targeta de crisi" simple i directa. Omple els camps i fes-li una foto per portar-la sempre al mòbil.</p>
+                        <div id="crisis-plan-card" class="bg-emerald-50 border-2 border-dashed border-emerald-300 p-6 rounded-xl space-y-4">
+                            <div class="space-y-2">
+                                <label class="font-semibold text-emerald-800">1. Reconeixement: "Quan noti..."</label>
+                                <input id="crisis-signal" type="text" placeholder="...la sensació d'inquietud a l'estómac." value="${appData.crisisPlan?.signal || ''}">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="font-semibold text-emerald-800">2. Acció immediata: "El primer que faré serà..."</label>
+                                <input id="crisis-action" type="text" placeholder="...sortir a caminar 15 minuts." value="${appData.crisisPlan?.action || ''}">
+                            </div>
+                            <div class="space-y-2">
+                                <label class="font-semibold text-emerald-800">3. Contacte: "Si l'impuls no baixa, trucaré a..."</label>
+                                <input id="crisis-contact" type="text" placeholder="...en Pau (6XX XXX XXX)." value="${appData.crisisPlan?.contact || ''}">
+                            </div>
+                             <div class="space-y-2">
+                                <label class="font-semibold text-emerald-800">4. Recordatori: "Això m'acosta al meu valor de..."</label>
+                                <input id="crisis-value" type="text" placeholder="...cuidar la meva salut." value="${appData.crisisPlan?.value || ''}">
+                            </div>
+                            <button id="save-crisis-plan" class="btn-primary mt-2 !bg-emerald-600 hover:!bg-emerald-700">Guardar pla</button>
+                        </div>
+                        ${getSectionFooter('suport')}
+                    </div>
+                `;
+            }
+
+            function getFuturContent() {
+                return `
+                    <h1 class="section-title">Mantenint el progrés i mirant cap al futur</h1>
+                    <div class="card mb-6">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="calendar-check" class="w-6 h-6 text-orange-500"></i>La meva revisió setmanal</h2>
+                        <p class="text-slate-600 mb-4">Dedica un moment cada setmana per reflexionar sobre el teu progrés, aprendre dels reptes i ajustar el teu pla.</p>
+                        <textarea id="weekly-review" class="w-full h-48 p-4 border rounded-lg" placeholder="Què ha funcionat bé? Què podria millorar? He fet passos cap als meus valors?">${appData.weeklyReview || ''}</textarea>
+                        <button id="save-weekly-review" class="btn-primary mt-4">Guardar revisió</button>
+                    </div>
+                     <div class="card mb-6">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="recycle" class="w-6 h-6 text-lime-600"></i>Gestionant una caiguda</h2>
+                        <p class="text-slate-600 mb-4">Una caiguda no és un fracàs, és una oportunitat d'aprenentatge. Si passa, segueix aquests passos:</p>
+                        <ol class="list-decimal list-inside space-y-2 text-slate-600">
+                            <li><b>Atura't:</b> no continuïs. Una caiguda no és una recaiguda completa.</li>
+                            <li><b>Allunya't:</b> surt de la situació de risc.</li>
+                            <li><b>Analitza:</b> amb curiositat, no amb judici. Què ha passat?</li>
+                            <li><b>Reformula:</b> "He après que..." en lloc de "He fracassat".</li>
+                            <li><b>Reconnecta:</b> parla amb algú de la teva xarxa de suport.</li>
+                            <li><b>Recompromet-te:</b> revisa els teus valors i torna a començar.</li>
+                        </ol>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="award" class="w-6 h-6 text-amber-500"></i>Diari d'èxits i gratitud</h2>
+                        <p class="text-slate-600 mb-4">Reconeix els teus èxits, per petits que siguin, i practica la gratitud. Això canvia la perspectiva.</p>
+                        <div class="flex gap-4 mb-4">
+                            <input id="gratitude-input" type="text" placeholder="Escriu un petit èxit o alguna cosa per la qual estàs agraït/da..." class="flex-grow p-2 border rounded-lg">
+                            <button id="add-gratitude-button" class="btn-primary px-6">Afegir</button>
+                        </div>
+                        <div id="gratitude-list" class="space-y-2"></div>
+                        ${getSectionFooter('futur')}
+                    </div>
+                `;
+            }
+
+            function getTeoriaIntroContent() {
+                return `
+                    <div class="card">
+                        <h1 class="section-title">Introducció: cap a una recuperació conscient</h1>
+                        <p class="text-lg text-slate-600 mb-6 leading-relaxed">Aquest espai interactiu està dissenyat per entendre el "perquè" darrere de les addiccions comportamentals i la prevenció de recaigudes. Comprendre els mecanismes que ens afecten és el primer pas per poder canviar-los.</p>
+                        <div class="bg-orange-50 border-l-4 border-orange-400 text-orange-800 p-4 rounded-r-lg">
+                            <div class="flex">
+                                <div class="py-1"><i data-lucide="lightbulb" class="w-5 h-5 mr-3 text-orange-500"></i></div>
+                                <div>
+                                    <p class="font-semibold">La recaiguda com a aprenentatge</p>
+                                    <p class="text-sm">En lloc de veure una caiguda com un fracàs, la presentem com una oportunitat per aprendre. Cada dificultat ens dona informació valuosa per enfortir el nostre camí de recuperació.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function getDefinicioContent() {
+                return `
+                    <h1 class="section-title">Què són les addiccions socials i comportamentals?</h1>
+                    <div class="card mb-6">
+                        <h2 class="text-xl font-semibold mb-4">Característiques comunes</h2>
+                        <div class="grid md:grid-cols-2 gap-4">
+                            <div class="bg-slate-50 p-4 rounded-lg border"><h3 class="font-semibold flex items-center gap-2"><i data-lucide="lock" class="w-5 h-5 text-orange-500"></i>Pèrdua de control</h3><p class="text-sm mt-1 text-slate-600">Incapacitat progressiva per controlar l'inici, la freqüència o la durada de la conducta.</p></div>
+                            <div class="bg-slate-50 p-4 rounded-lg border"><h3 class="font-semibold flex items-center gap-2"><i data-lucide="repeat" class="w-5 h-5 text-orange-500"></i>Persistència</h3><p class="text-sm mt-1 text-slate-600">Continuar amb la conducta malgrat ser conscient de les greus conseqüències negatives.</p></div>
+                            <div class="bg-slate-50 p-4 rounded-lg border"><h3 class="font-semibold flex items-center gap-2"><i data-lucide="trending-up" class="w-5 h-5 text-orange-500"></i>Tolerància</h3><p class="text-sm mt-1 text-slate-600">Necessitat d'augmentar la "dosi" de la conducta per aconseguir el mateix efecte.</p></div>
+                            <div class="bg-slate-50 p-4 rounded-lg border"><h3 class="font-semibold flex items-center gap-2"><i data-lucide="zap-off" class="w-5 h-5 text-orange-500"></i>Abstinència</h3><p class="text-sm mt-1 text-slate-600">Malestar físic i emocional intens quan s'intenta aturar o reduir la conducta.</p></div>
+                        </div>
+                    </div>
+                     <div class="card">
+                        <h2 class="text-xl font-semibold mb-4">La funció de la conducta addictiva</h2>
+                        <p class="text-slate-600 mb-4">La conducta addictiva rarament és el problema principal. Sovint és una estratègia, encara que perjudicial, per gestionar un malestar més profund. Ofereix un alleujament temporal i potent d'estats emocionals com l'ansietat, la depressió, la solitud o l'avorriment.</p>
+                        <div class="bg-blue-50 border-l-4 border-blue-400 text-blue-800 p-4 rounded-r-lg">
+                             <p class="font-semibold">La pregunta clau no és "per què no puc parar?", sinó "què m'aporta aquesta conducta que no estic aconseguint d'una altra manera?".</p>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function getMarlattContent() {
+                return `
+                    <h1 class="section-title">El model cognitiu-conductual de la recaiguda</h1>
+                    <p class="text-slate-500 mb-8">Desenvolupat per G. Alan Marlatt i Judith Gordon, aquest model ens ajuda a entendre la recaiguda com un procés, no com un esdeveniment sobtat. Això ens permet intervenir en diferents punts.</p>
+                    <div class="card">
+                        <h2 class="text-xl font-semibold mb-6 text-center">El camí de la recaiguda: un flux interactiu</h2>
+                        <div class="flex flex-col items-center">
+                            <div class="bg-red-100 border-2 border-red-400 text-red-800 p-4 rounded-xl shadow-md text-center"><h3 class="font-bold">Situació d'Alt Risc (SAR)</h3><p class="text-sm">Un desencadenant: estrès, conflicte, avorriment...</p></div>
+                            <i data-lucide="arrow-down" class="w-8 h-8 my-2 text-slate-400"></i>
+                            <div class="flex flex-col md:flex-row items-start gap-4 w-full">
+                                <div class="flex-1 flex flex-col items-center w-full">
+                                    <div class="bg-green-100 border-2 border-green-400 text-green-800 p-4 rounded-xl shadow-md text-center w-full"><h3 class="font-bold">Resposta d'afrontament EFICAÇ</h3><p class="text-sm">S'utilitzen les eines apreses</p></div>
+                                    <i data-lucide="arrow-down" class="w-8 h-8 my-2 text-slate-400"></i>
+                                    <div class="bg-green-200 p-4 rounded-xl shadow-md text-center w-full"><h3 class="font-bold">Augmenta l'autoeficàcia</h3><p class="text-sm">Creix la confiança en un mateix</p></div>
+                                     <i data-lucide="arrow-down" class="w-8 h-8 my-2 text-slate-400"></i>
+                                     <div class="bg-white border-2 border-green-500 p-4 rounded-xl shadow-md text-center w-full"><h3 class="font-bold text-green-600">Disminueix la probabilitat de recaiguda</h3></div>
+                                </div>
+                                <div class="flex-1 flex flex-col items-center w-full mt-4 md:mt-0">
+                                    <div class="bg-red-100 border-2 border-red-400 text-red-800 p-4 rounded-xl shadow-md text-center w-full"><h3 class="font-bold">Resposta d'afrontament INEFICAÇ</h3><p class="text-sm">No es tenen o no s'usen les eines</p></div>
+                                    <i data-lucide="arrow-down" class="w-8 h-8 my-2 text-slate-400"></i>
+                                    <div class="bg-red-200 p-4 rounded-xl shadow-md text-center w-full"><h3 class="font-bold">Disminueix l'autoeficàcia</h3><p class="text-sm">S'espera un resultat positiu de la conducta</p></div>
+                                    <i data-lucide="arrow-down" class="w-8 h-8 my-2 text-slate-400"></i>
+                                    <div class="bg-red-300 p-4 rounded-xl shadow-md text-center w-full"><h3 class="font-bold">Primera caiguda (*Lapse*)</h3><p class="text-sm">Es realitza la conducta addictiva</p></div>
+                                     <i data-lucide="arrow-down" class="w-8 h-8 my-2 text-slate-400"></i>
+                                     <div class="bg-red-400 text-white p-4 rounded-xl shadow-md text-center w-full"><h3 class="font-bold">Efecte de Violació de l'Abstinència (AVE)</h3><p class="text-sm">Culpa, vergonya, pensament "tot o res"</p></div>
+                                     <i data-lucide="arrow-down" class="w-8 h-8 my-2 text-slate-400"></i>
+                                     <div class="bg-red-800 text-white p-4 rounded-xl shadow-md text-center w-full"><h3 class="font-bold">Augmenta la probabilitat de recaiguda completa</h3></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            function getActContent() {
+                return `
+                     <h1 class="section-title">Viure d'acord amb els valors: l'aportació de l'ACT</h1>
+                     <p class="text-slate-500 mb-8">La Teràpia d'Acceptació i Compromís (ACT) no se centra a eliminar el malestar, sinó a canviar la nostra relació amb ell per poder construir una vida rica i amb sentit, fins i tot en presència de dificultats.</p>
+                     <div class="card">
+                        <h2 class="text-xl font-semibold mb-4">Els sis processos de la flexibilitat psicològica</h2>
+                        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                            <div class="bg-slate-50 p-4 rounded-lg border hover:border-orange-500 hover:shadow-md transition-all"><h3 class="font-semibold flex items-center gap-2"><i data-lucide="anchor" class="w-5 h-5 text-orange-500"></i>Acceptació</h3><p class="text-sm mt-1 text-slate-600">Donar espai al malestar (p. ex. *craving*) sense lluitar-hi.</p></div>
+                            <div class="bg-slate-50 p-4 rounded-lg border hover:border-orange-500 hover:shadow-md transition-all"><h3 class="font-semibold flex items-center gap-2"><i data-lucide="unlink-2" class="w-5 h-5 text-orange-500"></i>Defusió</h3><p class="text-sm mt-1 text-slate-600">Observar els pensaments com el que són (paraules), no com ordres.</p></div>
+                            <div class="bg-slate-50 p-4 rounded-lg border hover:border-orange-500 hover:shadow-md transition-all"><h3 class="font-semibold flex items-center gap-2"><i data-lucide="eye" class="w-5 h-5 text-orange-500"></i>Atenció al present</h3><p class="text-sm mt-1 text-slate-600">Portar l'atenció a l'aquí i ara, amb curiositat i sense judici.</p></div>
+                            <div class="bg-slate-50 p-4 rounded-lg border hover:border-orange-500 hover:shadow-md transition-all"><h3 class="font-semibold flex items-center gap-2"><i data-lucide="user-check" class="w-5 h-5 text-orange-500"></i>Jo-context</h3><p class="text-sm mt-1 text-slate-600">Adonar-se que som l'observador de les nostres experiències, no les experiències en si.</p></div>
+                            <div class="bg-slate-50 p-4 rounded-lg border hover:border-orange-500 hover:shadow-md transition-all"><h3 class="font-semibold flex items-center gap-2"><i data-lucide="compass" class="w-5 h-5 text-orange-500"></i>Valors</h3><p class="text-sm mt-1 text-slate-600">Clarificar què és realment important per a nosaltres, la nostra brúixola vital.</p></div>
+                            <div class="bg-slate-50 p-4 rounded-lg border hover:border-orange-500 hover:shadow-md transition-all"><h3 class="font-semibold flex items-center gap-2"><i data-lucide="move-right" class="w-5 h-5 text-orange-500"></i>Acció compromesa</h3><p class="text-sm mt-1 text-slate-600">Fer passos en direcció als nostres valors, fins i tot quan és difícil.</p></div>
+                        </div>
+                    </div>
+                `;
+            }
+
+            function getEspecificsContent() {
+                return `
+                    <h1 class="section-title">Anàlisi d'addiccions específiques</h1>
+                    <div class="space-y-4">
+                        <details class="card group"><summary class="flex justify-between items-center"><h2 class="text-xl font-semibold flex items-center gap-3"><i data-lucide="swords" class="w-6 h-6 text-orange-500"></i>Joc, apostes i *trading*</h2><i data-lucide="chevron-right" class="arrow w-6 h-6 text-orange-500"></i></summary><div class="mt-4 pt-4 border-t text-slate-600 space-y-3"><p><b>Mecanisme:</b> la promesa d'una recompensa monetària incerta, que activa el sistema de recompensa de manera molt potent.</p><p><b>Desencadenants comuns:</b> avorriment, estrès, disponibilitat de diners, publicitat agressiva, temps lliure no estructurat.</p><p><b>Pensaments trampa típics:</b> "Tinc un sistema", "la sort ha de canviar", "he de recuperar el que he perdut".</p></div></details>
+                        <details class="card group"><summary class="flex justify-between items-center"><h2 class="text-xl font-semibold flex items-center gap-3"><i data-lucide="smartphone" class="w-6 h-6 text-orange-500"></i>Pantalles: videojocs, internet i xarxes socials</h2><i data-lucide="chevron-right" class="arrow w-6 h-6 text-orange-500"></i></summary><div class="mt-4 pt-4 border-t text-slate-600 space-y-3"><p><b>Mecanisme:</b> dissenyades per ser addictives (reforç intermitent, cicles de compulsió). Compleixen una funció d'evasió i de connexió social.</p><p><b>Desencadenants comuns:</b> solitud, avorriment, ansietat social, FOMO (por a perdre's alguna cosa), notificacions constants.</p><p><b>Pensaments trampa típics:</b> "Només 5 minuts més", "tothom ho fa", "és la meva única manera de relaxar-me".</p></div></details>
+                        <details class="card group"><summary class="flex justify-between items-center"><h2 class="text-xl font-semibold flex items-center gap-3"><i data-lucide="shopping-bag" class="w-6 h-6 text-orange-500"></i>Compres i sexe/dependència afectiva</h2><i data-lucide="chevron-right" class="arrow w-6 h-6 text-orange-500"></i></summary><div class="mt-4 pt-4 border-t text-slate-600 space-y-3"><p><b>Mecanisme:</b> ús de la conducta com a "bàlsam" per regular estats emocionals negatius. Cerca de validació externa per compensar una baixa autoestima.</p><p><b>Desencadenants comuns:</b> estats emocionals negatius (tristesa, ansietat), rebaixes, pressió social, sentiments de solitud o rebuig.</p><p><b>Pensaments trampa típics:</b> "M'ho mereixo", "comprar això em farà sentir millor", "necessito algú per ser feliç".</p></div></details>
+                    </div>
+                `;
+            }
+
+            function getTaulesContent() {
+                 return `
+                    <h1 class="section-title">Taules resum</h1>
+                     <div class="card mb-6">
+                        <h2 class="text-xl font-semibold mb-4">Resum de les addiccions comportamentals</h2>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-sm text-left"><thead class="bg-orange-100 text-orange-800"><tr><th class="p-3 font-semibold">Tipus d'addicció</th><th class="p-3 font-semibold">Funció principal</th><th class="p-3 font-semibold">Pensaments trampa comuns</th></tr></thead>
+                                <tbody>
+                                    <tr class="border-b"><td class="p-3 font-medium">Joc / Apostes / Trading</td><td class="p-3">Cerca d'emoció, escapisme, solució financera màgica.</td><td class="p-3">"Aquest cop tindré sort.", "He de recuperar el que he perdut."</td></tr>
+                                    <tr class="border-b"><td class="p-3 font-medium">Pantalles</td><td class="p-3">Evasió, connexió social, validació, alleujament de l'ansietat.</td><td class="p-3">"Només 5 minuts més.", "Tothom ho fa."</td></tr>
+                                    <tr class="border-b"><td class="p-3 font-medium">Compres compulsives</td><td class="p-3">Regulació emocional, cerca d'autoestima i estatus.</td><td class="p-3">"M'ho mereixo.", "Comprar això em farà sentir millor."</td></tr>
+                                    <tr><td class="p-3 font-medium">Sexe / Dependència afectiva</td><td class="p-3">Regulació emocional, por a la solitud, cerca de validació.</td><td class="p-3">"Necessito algú per ser feliç.", "És millor això que estar sol/a."</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                     <div class="card">
+                        <h2 class="text-xl font-semibold mb-4">Guia de distorsions cognitives</h2>
+                        <div class="overflow-x-auto">
+                             <table class="w-full text-sm text-left"><thead class="bg-orange-100 text-orange-800"><tr><th class="p-3 font-semibold">Distorsió</th><th class="p-3 font-semibold">Exemple</th></tr></thead>
+                                <tbody>
+                                    <tr class="border-b"><td class="p-3 font-medium">Pensament polaritzat (tot o res)</td><td class="p-3">"Si tinc una caiguda, he fracassat totalment."</td></tr>
+                                    <tr class="border-b"><td class="p-3 font-medium">Sobregeneralització</td><td class="p-3">"He tornat a passar-me amb les compres. Mai no seré capaç de controlar-me."</td></tr>
+                                    <tr class="border-b"><td class="p-3 font-medium">Raonament emocional</td><td class="p-3">"Em sento ansiós/a, per tant, necessito jugar per calmar-me."</td></tr>
+                                    <tr><td class="p-3 font-medium">"Hauria de..."</td><td class="p-3">"Hauria de ser capaç de controlar això sol/a, sense ajuda."</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+            }
+
+            // --- Lligam d'Esdeveniments i Dades ---
+            function bindEventListeners() {
+                if (!currentUserId || !activeManualId) return;
+                const manualDocRef = doc(db, "users", currentUserId, "manuals", activeManualId);
+
+                // Motivations
+                const addMotivationButton = document.getElementById('add-motivation-button');
+                if (addMotivationButton) {
+                    renderMotivations();
+                    addMotivationButton.addEventListener('click', () => {
+                        const input = document.getElementById('motivation-input');
+                        const text = input.value.trim();
+                        if (text) {
+                            const newMotivation = { text, id: Date.now() };
+                            updateDoc(manualDocRef, { motivations: arrayUnion(newMotivation) });
+                            input.value = '';
+                        }
+                    });
+                }
+                
+                // Values
+                renderValues();
+
+                // Triggers
+                const addTriggerButton = document.getElementById('add-trigger-button');
+                if(addTriggerButton) {
+                    renderTriggers();
+                    addTriggerButton.addEventListener('click', () => {
+                        const external = document.getElementById('trigger-external').value.trim();
+                        const internal = document.getElementById('trigger-internal').value.trim();
+                        const physical = document.getElementById('trigger-physical').value.trim();
+                        if (external || internal || physical) {
+                            const newTrigger = { external, internal, physical, id: Date.now() };
+                            updateDoc(manualDocRef, { triggers: arrayUnion(newTrigger) });
+                            document.getElementById('trigger-external').value = '';
+                            document.getElementById('trigger-internal').value = '';
+                            document.getElementById('trigger-physical').value = '';
+                        }
+                    });
+                }
+                
+                // Trap Thoughts
+                const addTrapThoughtButton = document.getElementById('add-trap-thought-button');
+                if(addTrapThoughtButton) {
+                    renderTrapThoughts();
+                    renderTrapThoughtsReframe();
+                    addTrapThoughtButton.addEventListener('click', () => {
+                        const thought = document.getElementById('trap-thought-input').value.trim();
+                        if (thought) {
+                            const newThought = { thought, reframe: '', id: Date.now() };
+                            updateDoc(manualDocRef, { trapThoughts: arrayUnion(newThought) });
+                            document.getElementById('trap-thought-input').value = '';
+                        }
+                    });
+                }
+
+                // Self-Care Plan
+                renderSelfCarePlanner();
+
+                // Support Network
+                const addSupportButton = document.getElementById('add-support-button');
+                if(addSupportButton) {
+                    renderSupportNetwork();
+                    addSupportButton.addEventListener('click', () => {
+                        const name = document.getElementById('support-name').value.trim();
+                        const contact = document.getElementById('support-contact').value.trim();
+                        const role = document.getElementById('support-role').value.trim();
+                        if (name && contact && role) {
+                            const newSupport = { name, contact, role, id: Date.now() };
+                            updateDoc(manualDocRef, { supportNetwork: arrayUnion(newSupport) });
+                            document.getElementById('support-name').value = '';
+                            document.getElementById('support-contact').value = '';
+                            document.getElementById('support-role').value = '';
+                        }
+                    });
+                }
+                
+                // Crisis Plan
+                const saveCrisisPlanButton = document.getElementById('save-crisis-plan');
+                if(saveCrisisPlanButton) {
+                    saveCrisisPlanButton.addEventListener('click', () => {
+                        const plan = {
+                            signal: document.getElementById('crisis-signal').value,
+                            action: document.getElementById('crisis-action').value,
+                            contact: document.getElementById('crisis-contact').value,
+                            value: document.getElementById('crisis-value').value
+                        };
+                        updateDoc(manualDocRef, { crisisPlan: plan }).then(() => alert("Pla de crisi guardat!"));
+                    });
+                }
+                
+                // Weekly Review
+                const saveWeeklyReviewButton = document.getElementById('save-weekly-review');
+                if(saveWeeklyReviewButton) {
+                    saveWeeklyReviewButton.addEventListener('click', () => {
+                         const value = document.getElementById('weekly-review').value;
+                         updateDoc(manualDocRef, { weeklyReview: value }).then(() => alert("Revisió setmanal guardada!"));
+                    });
+                }
+                
+                // Gratitude Journal
+                const addGratitudeButton = document.getElementById('add-gratitude-button');
+                if(addGratitudeButton) {
+                    renderGratitudeJournal();
+                    addGratitudeButton.addEventListener('click', () => {
+                        const entry = document.getElementById('gratitude-input').value.trim();
+                        if (entry) {
+                            const newEntry = { entry, id: Date.now() };
+                            updateDoc(manualDocRef, { gratitudeJournal: arrayUnion(newEntry) });
+                            document.getElementById('gratitude-input').value = '';
+                        }
+                    });
+                }
+
+                // Navigation buttons
+                document.querySelectorAll('.next-section-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        const nextSection = e.currentTarget.dataset.nextSection;
+                        if (nextSection) {
+                            navigateToSection(nextSection);
+                        }
+                    });
+                });
+
+                const saveAndPrintBtn = document.getElementById('save-and-print-btn');
+                if (saveAndPrintBtn) {
+                    saveAndPrintBtn.addEventListener('click', () => printArchivedManual(currentUserId, activeManualId));
+                }
+
+                lucide.createIcons();
+            }
+            
+            // --- Funcions de Renderitzat Específiques ---
+            function renderMotivations() {
+                const listDiv = document.getElementById('motivations-list');
+                if (!listDiv) return;
+                listDiv.innerHTML = '';
+                (appData.motivations || []).forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-slate-50 p-3 rounded-lg border flex justify-between items-center';
+                    div.innerHTML = `<p class="text-slate-700 flex-1">${item.text}</p><button class="text-slate-400 hover:text-red-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>`;
+                    div.querySelector('button').onclick = () => {
+                        updateDoc(doc(db, "users", currentUserId, "manuals", activeManualId), { motivations: arrayRemove(item) });
+                    };
+                    listDiv.appendChild(div);
+                });
+                lucide.createIcons();
+            }
+
+            function renderTriggers() {
+                const triggersListDiv = document.getElementById('triggers-list');
+                if (!triggersListDiv) return;
+                triggersListDiv.innerHTML = '';
+                (appData.triggers || []).forEach(trigger => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-slate-50 p-4 rounded-lg border relative';
+                    card.innerHTML = `
+                        <button class="absolute top-2 right-2 text-slate-400 hover:text-red-500"><i data-lucide="x" class="w-4 h-4"></i></button>
+                        ${trigger.external ? `<p class="text-sm"><strong class="font-semibold text-slate-700">Extern:</strong> ${trigger.external}</p>` : ''}
+                        ${trigger.internal ? `<p class="text-sm"><strong class="font-semibold text-slate-700">Intern:</strong> ${trigger.internal}</p>` : ''}
+                        ${trigger.physical ? `<p class="text-sm"><strong class="font-semibold text-slate-700">Físic:</strong> ${trigger.physical}</p>` : ''}
+                    `;
+                    card.querySelector('button').onclick = () => {
+                        updateDoc(doc(db, "users", currentUserId, "manuals", activeManualId), { triggers: arrayRemove(trigger) });
+                    };
+                    triggersListDiv.appendChild(card);
+                });
+                lucide.createIcons();
+            }
+
+            function renderTrapThoughts() {
+                const listDiv = document.getElementById('trap-thoughts-list');
+                if (!listDiv) return;
+                listDiv.innerHTML = '';
+                (appData.trapThoughts || []).forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'p-4 border-b flex justify-between items-start gap-4';
+                    div.innerHTML = `
+                        <p class="text-slate-700 flex-1"><i data-lucide="message-square-warning" class="w-4 h-4 inline-block mr-2 text-amber-500"></i>${item.thought}</p>
+                        <button class="text-slate-400 hover:text-red-500"><i data-lucide="trash-2" class="w-4 h-4"></i></button>
+                    `;
+                    div.querySelector('button').onclick = () => {
+                         updateDoc(doc(db, "users", currentUserId, "manuals", activeManualId), { trapThoughts: arrayRemove(item) });
+                    };
+                    listDiv.appendChild(div);
+                });
+                lucide.createIcons();
+            }
+
+            function renderTrapThoughtsReframe() {
+                const listDiv = document.getElementById('trap-thoughts-reframe-list');
+                if (!listDiv) return;
+                listDiv.innerHTML = '';
+                (appData.trapThoughts || []).forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'p-4 bg-slate-50 rounded-lg border mb-4';
+                    div.innerHTML = `
+                        <p class="font-semibold text-slate-800 mb-2">${item.thought}</p>
+                        <textarea class="w-full p-2 border rounded-lg text-sm" placeholder="Escriu aquí una resposta alternativa i més útil...">${item.reframe || ''}</textarea>
+                        <button class="btn-primary !bg-slate-600 hover:!bg-slate-700 text-xs px-3 py-1.5 mt-2">Guardar resposta</button>
+                    `;
+                    div.querySelector('button').onclick = () => {
+                        const reframeValue = div.querySelector('textarea').value;
+                        const updatedThoughts = (appData.trapThoughts || []).map(t => t.id === item.id ? { ...t, reframe: reframeValue } : t);
+                        updateDoc(doc(db, "users", currentUserId, "manuals", activeManualId), { trapThoughts: updatedThoughts }).then(() => alert("Resposta guardada."));
+                    };
+                    listDiv.appendChild(div);
+                });
+            }
+            
+            function renderSupportNetwork() {
+                const listDiv = document.getElementById('support-list');
+                if (!listDiv) return;
+                listDiv.innerHTML = '';
+                (appData.supportNetwork || []).forEach(person => {
+                    const card = document.createElement('div');
+                    card.className = 'bg-orange-50 p-4 rounded-lg border border-orange-200 relative';
+                    card.innerHTML = `
+                        <button class="absolute top-2 right-2 text-slate-400 hover:text-red-500"><i data-lucide="x" class="w-4 h-4"></i></button>
+                        <h3 class="font-semibold text-lg text-orange-700">${person.name}</h3>
+                        <p class="text-sm text-slate-500 mb-2">${person.contact}</p>
+                        <p class="text-sm text-slate-700 bg-white p-2 rounded-md">${person.role}</p>
+                    `;
+                    card.querySelector('button').onclick = () => {
+                         updateDoc(doc(db, "users", currentUserId, "manuals", activeManualId), { supportNetwork: arrayRemove(person) });
+                    };
+                    listDiv.appendChild(card);
+                });
+                lucide.createIcons();
+            }
+
+            function renderGratitudeJournal() {
+                const listDiv = document.getElementById('gratitude-list');
+                if (!listDiv) return;
+                listDiv.innerHTML = '';
+                (appData.gratitudeJournal || []).forEach(item => {
+                    const div = document.createElement('div');
+                    div.className = 'bg-amber-50 p-3 rounded-lg border border-amber-200 flex justify-between items-center';
+                    div.innerHTML = `
+                        <p class="text-sm text-amber-800">${item.entry}</p>
+                        <button class="text-slate-400 hover:text-red-500"><i data-lucide="x" class="w-4 h-4"></i></button>
+                    `;
+                    div.querySelector('button').onclick = () => {
+                        updateDoc(doc(db, "users", currentUserId, "manuals", activeManualId), { gratitudeJournal: arrayRemove(item) });
+                    };
+                    listDiv.appendChild(div);
+                });
+                lucide.createIcons();
+            }
+
+            function renderValues() {
+                const valuesSelectionDiv = document.getElementById('values-selection');
+                if (!valuesSelectionDiv) return;
+
+                valuesSelectionDiv.innerHTML = '';
+                allValues.forEach(value => {
+                    const isSelected = appData.values?.selected?.includes(value);
+                    const button = document.createElement('button');
+                    button.textContent = value;
+                    button.className = `px-3 py-1.5 text-sm rounded-full border transition-colors ${isSelected ? 'bg-orange-500 text-white border-orange-500' : 'bg-white text-slate-700 border-slate-300 hover:bg-slate-100'}`;
+                    button.onclick = () => toggleValueSelection(value);
+                    valuesSelectionDiv.appendChild(button);
+                });
+                renderValueDetails();
+            }
+            
+            function toggleValueSelection(value) {
+                const selected = appData.values?.selected || [];
+                const index = selected.indexOf(value);
+                if (index > -1) {
+                    selected.splice(index, 1);
+                } else if (selected.length < 7) {
+                    selected.push(value);
+                }
+                updateDoc(doc(db, "users", currentUserId, "manuals", activeManualId), { 'values.selected': selected });
+            }
+
+            function renderValueDetails() {
+                const valuesDetailsDiv = document.getElementById('values-details');
+                if (!valuesDetailsDiv) return;
+                valuesDetailsDiv.innerHTML = '';
+                (appData.values?.selected || []).forEach(value => {
+                    const detail = appData.values?.details?.[value] || { definition: '', importance: 5, alignment: 5 };
+                    const container = document.createElement('div');
+                    container.className = 'mt-6 p-4 bg-slate-50 rounded-lg border';
+                    container.innerHTML = `
+                        <h3 class="font-semibold text-lg text-orange-600">${value}</h3>
+                        <p class="text-sm text-slate-500 mb-2">Què significa aquest valor per a tu?</p>
+                        <textarea class="w-full p-2 border rounded-lg text-sm mb-4" data-value="${value}" placeholder="Exemple: Per a mi, la connexió significa estar present...">${detail.definition || ''}</textarea>
+                        <div class="grid md:grid-cols-2 gap-4 text-sm">
+                            <div><label class="font-medium">Importància (0-10): <span class="font-bold text-orange-600">${detail.importance}</span></label><input type="range" min="0" max="10" value="${detail.importance}" class="w-full accent-orange-500" data-value="${value}" data-type="importance"></div>
+                            <div><label class="font-medium">Alineació recent (0-10): <span class="font-bold text-orange-600">${detail.alignment}</span></label><input type="range" min="0" max="10" value="${detail.alignment}" class="w-full accent-orange-500" data-value="${value}" data-type="alignment"></div>
+                        </div>
+                    `;
+                    container.addEventListener('input', debounce((e) => {
+                        const definition = container.querySelector('textarea').value;
+                        const importance = container.querySelector('[data-type="importance"]').value;
+                        const alignment = container.querySelector('[data-type="alignment"]').value;
+                        updateDoc(doc(db, "users", currentUserId, "manuals", activeManualId), { 
+                            [`values.details.${value}.definition`]: definition,
+                            [`values.details.${value}.importance`]: parseInt(importance, 10),
+                            [`values.details.${value}.alignment`]: parseInt(alignment, 10)
+                        });
+                        if (e.target.type === 'range') {
+                           e.target.previousElementSibling.querySelector('span').textContent = e.target.value;
+                        }
+                    }, 1500));
+                    valuesDetailsDiv.appendChild(container);
+                });
+            }
+
+            function renderSelfCarePlanner() {
+                const plannerDiv = document.getElementById('self-care-planner');
+                if (!plannerDiv) return;
+                const days = ['Dilluns', 'Dimarts', 'Dimecres', 'Dijous', 'Divendres', 'Dissabte', 'Diumenge'];
+                const areas = ['Física', 'Emocional', 'Social', 'De sentit'];
+                
+                let tableHTML = '<div class="overflow-x-auto"><table class="w-full border-collapse text-sm text-center">';
+                tableHTML += '<thead><tr class="bg-slate-100"><th></th>';
+                days.forEach(day => tableHTML += `<th class="p-2 border font-semibold">${day}</th>`);
+                tableHTML += '</tr></thead><tbody>';
+                areas.forEach(area => {
+                    tableHTML += `<tr><td class="p-2 border font-semibold bg-slate-50">${area}</td>`;
+                    days.forEach(day => {
+                        const id = `${area}-${day}`;
+                        const content = appData.selfCarePlan?.[id] || '';
+                        tableHTML += `<td class="p-1 border"><textarea class="w-full h-20 p-1 border-none rounded-md text-xs focus:ring-1 focus:ring-orange-500" data-id="${id}" placeholder="Activitat...">${content}</textarea></td>`;
+                    });
+                    tableHTML += '</tr>';
+                });
+                tableHTML += '</tbody></table></div><button id="save-self-care-plan" class="btn-primary mt-4">Guardar pla d\'autocura</button>';
+                plannerDiv.innerHTML = tableHTML;
+
+                plannerDiv.querySelector('#save-self-care-plan').addEventListener('click', () => {
+                    const plan = {};
+                    plannerDiv.querySelectorAll('textarea').forEach(textarea => {
+                        plan[textarea.dataset.id] = textarea.value;
+                    });
+                    updateDoc(doc(db, "users", currentUserId, "manuals", activeManualId), { selfCarePlan: plan }).then(() => alert("Pla d'autocura guardat!"));
+                });
+            }
+
+            // --- Historial, Impressió i Arxivat ---
+            async function loadManualsHistory(uid) {
+                const historyList = document.getElementById('manuals-history-list');
+                historyList.innerHTML = '<p class="text-slate-500">Carregant historial...</p>';
+                const q = query(collection(db, `users/${uid}/manuals`), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(q);
+                
+                if (querySnapshot.empty) {
+                    historyList.innerHTML = '<p class="text-slate-500">No hi ha manuals arxivats.</p>';
+                    return;
+                }
+
+                historyList.innerHTML = '';
+                querySnapshot.forEach(docSnap => {
+                    const manual = docSnap.data();
+                    const manualId = docSnap.id;
+                    const date = manual.createdAt.toDate().toLocaleDateString('ca-ES', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+                    const item = document.createElement('div');
+                    item.className = `flex flex-wrap justify-between items-center p-4 border rounded-lg ${manualId === activeManualId ? 'bg-orange-50 border-orange-200' : 'bg-slate-50'}`;
+                    item.innerHTML = `
+                        <div>
+                            <p class="font-semibold">Manual del ${date} ${manualId === activeManualId ? '<span class="text-xs font-normal text-orange-600">(Actiu)</span>' : ''}</p>
+                            <p class="text-xs text-slate-500">ID: ${manualId}</p>
+                        </div>
+                        <div class="flex gap-2 mt-2 sm:mt-0">
+                            <button class="print-manual-btn btn-secondary text-xs"><i data-lucide="printer" class="w-4 h-4 mr-1"></i>Imprimir</button>
+                            ${manualId !== activeManualId ? '<button class="delete-manual-btn btn-secondary btn-danger text-xs"><i data-lucide="trash-2" class="w-4 h-4 mr-1"></i>Esborrar</button>' : ''}
+                        </div>
+                    `;
+                    item.querySelector('.print-manual-btn').addEventListener('click', () => printArchivedManual(uid, manualId));
+                    if (manualId !== activeManualId) {
+                        item.querySelector('.delete-manual-btn').addEventListener('click', () => deleteArchivedManual(uid, manualId));
+                    }
+                    historyList.appendChild(item);
+                });
+                lucide.createIcons();
+            }
+
+            async function deleteArchivedManual(uid, manualId) {
+                if (confirm(`Estàs segur que vols esborrar permanentment aquest manual? Aquesta acció no es pot desfer.`)) {
+                    try {
+                        await deleteDoc(doc(db, `users/${uid}/manuals`, manualId));
+                        loadManualsHistory(uid); // Refresh history
+                    } catch (error) {
+                        console.error("Error esborrant el manual:", error);
+                        alert("No s'ha pogut esborrar el manual.");
+                    }
+                }
+            }
+
+            async function printArchivedManual(uid, manualId) {
+                const manualDoc = await getDoc(doc(db, `users/${uid}/manuals`, manualId));
+                if (!manualDoc.exists()) {
+                    alert("No s'ha pogut trobar el manual per imprimir.");
+                    return;
+                }
+                const dataToPrint = manualDoc.data();
+                const printArea = document.getElementById('print-area');
+                
+                let printHTML = `<h1 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Manual de Prevenció - ${dataToPrint.createdAt.toDate().toLocaleDateString('ca-ES')}</h1>`;
+                
+                printHTML += `<div class="print-card print-page-break"><h2 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Per què vull canviar?</h2>`;
+                if (Array.isArray(dataToPrint.motivations)) {
+                    (dataToPrint.motivations || []).forEach(m => {
+                        printHTML += `<p style="white-space: pre-wrap; border-bottom: 1px solid #eee; padding-bottom: 5px; margin-bottom: 5px;">- ${m.text}</p>`;
+                    });
+                } else if (typeof dataToPrint.motivations === 'string') { // Handle old string format
+                     printHTML += `<p style="white-space: pre-wrap;">${dataToPrint.motivations}</p>`;
+                }
+                printHTML += `</div>`;
+                
+                if (dataToPrint.values?.selected?.length > 0) {
+                    printHTML += `<div class="print-card print-page-break"><h2 style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Els meus valors</h2>`;
+                    dataToPrint.values.selected.forEach(value => {
+                        const details = dataToPrint.values.details[value];
+                        printHTML += `<div style="margin-bottom: 15px;"><h3 style="font-weight: bold;">${value}</h3><p style="font-size: 14px; white-space: pre-wrap;">${details?.definition || ''}</p></div>`;
+                    });
+                    printHTML += `</div>`;
+                }
+                
+                printArea.innerHTML = printHTML;
+                window.print();
+            }
+            
+            async function createNewManual(uid) {
+                const newManualRef = await addDoc(collection(db, `users/${uid}/manuals`), { 
+                    createdAt: new Date(),
+                    motivations: [], values: { selected: [], details: {} }, triggers: [], trapThoughts: [], selfCarePlan: {}, supportNetwork: [], crisisPlan: { signal: '', action: '', contact: '', value: '' }, weeklyReview: '', gratitudeJournal: []
+                });
+                await updateDoc(doc(db, "users", uid), { activeManualId: newManualRef.id });
+                activeManualId = newManualRef.id;
+                setupRealtimeListener(uid, activeManualId);
+            }
+            
+            const archiveAction = async () => {
+                if (confirm("Estàs segur que vols guardar i arxivar aquest manual per començar-ne un de nou? El progrés actual es guardarà a l'historial.")) {
+                    await createNewManual(currentUserId);
+                }
+            };
+            document.getElementById('archive-button').addEventListener('click', archiveAction);
+            document.getElementById('archive-button-mobile').addEventListener('click', archiveAction);
+
+            // --- Firebase Cloud Messaging ---
+            const notificationsButton = document.getElementById('notifications-toggle');
+            notificationsButton.addEventListener('click', () => {
+                Notification.requestPermission().then((permission) => {
+                    if (permission === 'granted') {
+                        console.log('Notification permission granted.');
+                        getToken(messaging, { vapidKey: 'BLq1MrJwgRyjPhVR7lgMUUJ4W4y1q4-4BXvwtwPSfd-sGU0RS8P_3ePNTLBK06nrxk1QnOxnW8m2hFjvMwiQz0U' }).then(async (currentToken) => {
+                            if (currentToken) {
+                                console.log('FCM Token:', currentToken);
+                                const userDocRef = doc(db, "users", currentUserId);
+                                await updateDoc(userDocRef, { fcmToken: currentToken });
+                                alert('Notificacions activades correctament.');
+                            } else {
+                                console.log('No registration token available. Request permission to generate one.');
+                                alert("No s'ha pogut obtenir el token per a les notificacions.");
+                            }
+                        }).catch((err) => {
+                            console.log('An error occurred while retrieving token. ', err);
+                            alert("S'ha produït un error en activar les notificacions.");
+                        });
+                    } else {
+                        console.log('Unable to get permission to notify.');
+                        alert('No has donat permís per rebre notificacions.');
+                    }
+                });
+            });
+
+            onMessage(messaging, (payload) => {
+                console.log('Message received. ', payload);
+                // Customize notification here
+                const notificationTitle = payload.notification.title;
+                const notificationOptions = {
+                    body: payload.notification.body,
+                    icon: '/logo.ico'
+                };
+                new Notification(notificationTitle, notificationOptions);
+            });
+
+
+            // --- INICI DE L'APP ---
+            lucide.createIcons();
+            showPage('landing-page');
+
+            // --- Lògica d'Instal·lació de la PWA ---
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js').then(registration => {
+                        console.log('ServiceWorker registrat amb èxit:', registration.scope);
+                    }).catch(error => {
+                        console.log('Error en el registre del ServiceWorker:', error);
+                    });
+                });
+            }
+
+            let deferredPrompt;
+            const installButton = document.getElementById('install-pwa-button');
+            const installButtonMobile = document.getElementById('install-pwa-button-mobile');
+
+            window.addEventListener('beforeinstallprompt', (e) => {
+                e.preventDefault();
+                deferredPrompt = e;
+                if (installButton) installButton.classList.remove('hidden');
+                if (installButtonMobile) installButtonMobile.classList.remove('hidden');
+                console.log('`beforeinstallprompt` event was fired.');
+            });
+
+            const installApp = async () => {
+                if (!deferredPrompt) {
+                    alert("L'aplicació no es pot instal·lar en aquest moment. Prova-ho més tard o assegura't que estàs utilitzant un navegador compatible.");
+                    return;
+                }
+                if (installButton) installButton.classList.add('hidden');
+                if (installButtonMobile) installButtonMobile.classList.add('hidden');
+                
+                deferredPrompt.prompt();
+                
+                const { outcome } = await deferredPrompt.userChoice;
+                console.log(`User response to the install prompt: ${outcome}`);
+                
+                deferredPrompt = null;
+            };
+
+            if (installButton) installButton.addEventListener('click', installApp);
+            if (installButtonMobile) installButtonMobile.addEventListener('click', installApp);
+
+            window.addEventListener('appinstalled', () => {
+                if (installButton) installButton.classList.add('hidden');
+                if (installButtonMobile) installButtonMobile.classList.add('hidden');
+                deferredPrompt = null;
+                console.log('PWA was installed');
+            });
+        });
+    </script>
+</body>
+</html>

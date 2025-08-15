@@ -1,0 +1,21 @@
+{
+  "name": "ACENCAS - Eina de Prevenció Activa",
+  "short_name": "APA",
+  "description": "Eina personal per a la prevenció de recaigudes i el creixement personal.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#f97316",
+  "icons": [
+    {
+      "src": "/logo-192.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "/logo-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ]
+}
