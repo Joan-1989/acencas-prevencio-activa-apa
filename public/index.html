@@ -178,6 +178,11 @@
                 page-break-before: always;
             }
         }
+        
+        .lang-selector button.active {
+            background-color: var(--primary-orange);
+            color: white;
+        }
     </style>
 </head>
 <body class="bg-slate-50">
@@ -189,12 +194,12 @@
                 <img src="logo.ico" alt="Logo ACENCAS" class="h-40 w-40">
             </div>
             <h1 class="font-nunito text-5xl font-extrabold tracking-tight text-gray-900 sm:text-6xl">
-                <span class="block">Eina de prevenció activa</span>
-                <span class="block text-orange-500 mt-2">ACENCAS Prevenció Activa</span>
+                <span class="block" data-translate="landing_title1">Eina de prevenció activa</span>
+                <span class="block text-orange-500 mt-2" data-translate="landing_title2">ACENCAS Prevenció Activa</span>
             </h1>
-            <p class="mt-6 max-w-2xl mx-auto text-lg leading-8 text-slate-600">El teu espai personal i segur per entendre't millor i construir un camí de recuperació sòlid i conscient.</p>
+            <p class="mt-6 max-w-2xl mx-auto text-lg leading-8 text-slate-600" data-translate="landing_subtitle">El teu espai personal i segur per entendre't millor i construir un camí de recuperació sòlid i conscient.</p>
             <div class="mt-10 flex items-center justify-center gap-x-6">
-                <button data-page="login-page" class="btn-primary text-lg">Entrar o Registrar-se</button>
+                <button data-page="login-page" class="btn-primary text-lg" data-translate="landing_button">Entrar o Registrar-se</button>
             </div>
         </div>
     </div>
@@ -206,25 +211,25 @@
                 <img src="logo.ico" alt="Logo ACENCAS" class="h-28 w-28">
             </div>
             <div id="auth-container">
-                <h2 id="auth-title" class="font-nunito text-3xl font-bold tracking-tight text-gray-900 text-center">Accedeix al teu compte</h2>
-                <p id="auth-subtitle" class="mt-2 text-center text-slate-600">Introdueix el teu correu i contrasenya.</p>
+                <h2 id="auth-title" class="font-nunito text-3xl font-bold tracking-tight text-gray-900 text-center" data-translate="login_title">Accedeix al teu compte</h2>
+                <p id="auth-subtitle" class="mt-2 text-center text-slate-600" data-translate="login_subtitle">Introdueix el teu correu i contrasenya.</p>
                 <form id="auth-form" class="mt-8 card">
                     <div class="space-y-6">
                         <div>
-                            <label for="auth-email" class="block text-sm font-medium leading-6 text-gray-900">Correu electrònic</label>
+                            <label for="auth-email" class="block text-sm font-medium leading-6 text-gray-900" data-translate="auth_email">Correu electrònic</label>
                             <input type="email" id="auth-email" name="email" required autocomplete="email" class="mt-2">
                         </div>
                         <div>
-                            <label for="auth-password" class="block text-sm font-medium leading-6 text-gray-900">Contrasenya</label>
+                            <label for="auth-password" class="block text-sm font-medium leading-6 text-gray-900" data-translate="auth_password">Contrasenya</label>
                             <input type="password" id="auth-password" name="password" required autocomplete="current-password" class="mt-2">
                         </div>
                         <div id="auth-error" class="hidden text-sm text-red-600 bg-red-50 p-3 rounded-lg"></div>
-                        <button id="auth-submit-button" type="submit" class="btn-primary w-full text-base">Iniciar sessió</button>
+                        <button id="auth-submit-button" type="submit" class="btn-primary w-full text-base" data-translate="auth_login_button">Iniciar sessió</button>
                     </div>
                 </form>
                 <p class="mt-6 text-center text-sm text-slate-500">
-                    <span id="auth-toggle-text">No tens un compte?</span>
-                    <a href="#" id="auth-toggle-link" class="font-semibold text-orange-600 hover:text-orange-500">Registra't</a>
+                    <span id="auth-toggle-text" data-translate="auth_no_account">No tens un compte?</span>
+                    <a href="#" id="auth-toggle-link" class="font-semibold text-orange-600 hover:text-orange-500" data-translate="auth_register_link">Registra't</a>
                 </p>
             </div>
         </div>
@@ -245,17 +250,22 @@
                     </nav>
                 </div>
                 <div class="space-y-2">
+                    <div class="lang-selector flex justify-center items-center gap-2 p-2 bg-slate-100 rounded-lg">
+                        <button data-lang="ca" class="px-3 py-1 text-sm rounded-md transition-colors">CA</button>
+                        <button data-lang="es" class="px-3 py-1 text-sm rounded-md transition-colors">ES</button>
+                    </div>
+
                     <button id="install-pwa-button" class="hidden w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-green-100 hover:bg-green-200 text-green-800 transition-colors">
-                        <i data-lucide="download-cloud" class="w-5 h-5"></i><span>Instal·lar App</span>
+                        <i data-lucide="download-cloud" class="w-5 h-5"></i><span data-translate="sidebar_install">Instal·lar App</span>
                     </button>
                     <button id="archive-button" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">
-                        <i data-lucide="save" class="w-5 h-5"></i><span>Guardar i arxivar manual</span>
+                        <i data-lucide="save" class="w-5 h-5"></i><span data-translate="sidebar_archive">Guardar i arxivar manual</span>
                     </button>
                     <button data-page="profile-page" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-100 text-slate-600 transition-colors">
-                        <i data-lucide="user" class="w-5 h-5"></i><span>El meu perfil i historial</span>
+                        <i data-lucide="user" class="w-5 h-5"></i><span data-translate="sidebar_profile">El meu perfil i historial</span>
                     </button>
                     <button id="logout-button" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg hover:bg-red-50 text-red-600 transition-colors">
-                        <i data-lucide="log-out" class="w-5 h-5"></i><span>Tancar sessió</span>
+                        <i data-lucide="log-out" class="w-5 h-5"></i><span data-translate="sidebar_logout">Tancar sessió</span>
                     </button>
                 </div>
             </aside>
@@ -269,7 +279,7 @@
         <!-- Menú mòbil (ocult per defecte) -->
         <div id="mobile-menu" class="fixed inset-0 bg-white z-50 p-4 hidden md:hidden no-print flex flex-col">
             <div class="flex justify-between items-center mb-8 flex-shrink-0">
-                <h1 class="text-lg font-bold text-gray-800">Menú</h1>
+                <h1 class="text-lg font-bold text-gray-800" data-translate="mobile_menu_title">Menú</h1>
                 <button id="close-mobile-menu" class="p-2">
                     <i data-lucide="x" class="w-6 h-6"></i>
                 </button>
@@ -277,16 +287,16 @@
             <nav id="mobile-nav-menu" class="flex-grow overflow-y-auto"></nav>
             <div class="mt-auto space-y-2 flex-shrink-0 pt-4">
                  <button id="install-pwa-button-mobile" class="hidden w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-green-100 hover:bg-green-200 text-green-800 transition-colors">
-                    <i data-lucide="download-cloud" class="w-5 h-5"></i><span>Instal·lar App</span>
+                    <i data-lucide="download-cloud" class="w-5 h-5"></i><span data-translate="sidebar_install">Instal·lar App</span>
                 </button>
                  <button id="archive-button-mobile" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors">
-                    <i data-lucide="save" class="w-5 h-5"></i><span>Guardar i arxivar manual</span>
+                    <i data-lucide="save" class="w-5 h-5"></i><span data-translate="sidebar_archive">Guardar i arxivar manual</span>
                 </button>
                 <button data-page="profile-page" id="profile-button-mobile" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg hover:bg-slate-100 text-slate-600 transition-colors">
-                    <i data-lucide="user" class="w-5 h-5"></i><span>El meu perfil i historial</span>
+                    <i data-lucide="user" class="w-5 h-5"></i><span data-translate="sidebar_profile">El meu perfil i historial</span>
                 </button>
                 <button id="logout-button-mobile" class="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-lg hover:bg-red-50 text-red-600 transition-colors">
-                    <i data-lucide="log-out" class="w-5 h-5"></i><span>Tancar sessió</span>
+                    <i data-lucide="log-out" class="w-5 h-5"></i><span data-translate="sidebar_logout">Tancar sessió</span>
                 </button>
             </div>
         </div>
@@ -296,47 +306,47 @@
     <div id="profile-page" class="page max-w-4xl mx-auto py-10 px-4">
         <div class="space-y-8">
             <div class="card w-full">
-                <h1 class="text-3xl font-bold mb-6">El meu perfil</h1>
+                <h1 class="text-3xl font-bold mb-6" data-translate="profile_title">El meu perfil</h1>
                 <form id="profile-form" class="space-y-4">
                     <div class="grid md:grid-cols-2 gap-4">
                         <div>
-                            <label for="profile-name" class="block text-sm font-medium text-gray-700">Nom</label>
-                            <input type="text" id="profile-name" class="mt-1">
+                            <label for="profile-name" class="block text-sm font-medium text-gray-700" data-translate="profile_name">Nom</label>
+                            <input type="text" id="profile-name" name="profile-name" class="mt-1">
                         </div>
                         <div>
-                            <label for="profile-surname" class="block text-sm font-medium text-gray-700">Cognoms</label>
-                            <input type="text" id="profile-surname" class="mt-1">
+                            <label for="profile-surname" class="block text-sm font-medium text-gray-700" data-translate="profile_surname">Cognoms</label>
+                            <input type="text" id="profile-surname" name="profile-surname" class="mt-1">
                         </div>
                     </div>
                     <div>
-                        <label for="profile-phone" class="block text-sm font-medium text-gray-700">Telèfon</label>
-                        <input type="text" id="profile-phone" class="mt-1">
+                        <label for="profile-phone" class="block text-sm font-medium text-gray-700" data-translate="profile_phone">Telèfon</label>
+                        <input type="text" id="profile-phone" name="profile-phone" class="mt-1">
                     </div>
                     <div>
-                        <label for="profile-email" class="block text-sm font-medium text-gray-700">Correu electrònic</label>
-                        <input type="email" id="profile-email" class="mt-1 bg-slate-100" readonly>
+                        <label for="profile-email" class="block text-sm font-medium text-gray-700" data-translate="auth_email">Correu electrònic</label>
+                        <input type="email" id="profile-email" name="profile-email" class="mt-1 bg-slate-100" readonly>
                     </div>
                     <div class="pt-4">
-                         <button type="submit" class="btn-primary">Desar canvis del perfil</button>
+                         <button type="submit" class="btn-primary" data-translate="profile_save_button">Desar canvis del perfil</button>
                     </div>
                 </form>
                 
                 <div class="border-t pt-6 mt-6">
-                    <h2 class="text-2xl font-bold mb-4">Notificacions</h2>
+                    <h2 class="text-2xl font-bold mb-4" data-translate="profile_notifications_title">Notificacions</h2>
                     <div class="flex items-center justify-between">
-                        <p class="text-slate-600">Vull rebre notificacions i recordatoris.</p>
-                        <button id="notifications-toggle" class="btn-secondary btn-green">Activar notificacions</button>
+                        <p class="text-slate-600" data-translate="profile_notifications_text">Vull rebre notificacions i recordatoris.</p>
+                        <button id="notifications-toggle" class="btn-secondary btn-green" data-translate="profile_notifications_button">Activar notificacions</button>
                     </div>
                 </div>
 
                 <div class="border-t pt-6 mt-6">
-                    <h2 class="text-2xl font-bold mb-4">Comptador de dies</h2>
-                    <p class="text-slate-500 mb-4">Selecciona l'últim dia de consum per portar un registre dels teus dies guanyats a l'addicció.</p>
+                    <h2 class="text-2xl font-bold mb-4" data-translate="profile_counter_title">Comptador de dies</h2>
+                    <p class="text-slate-500 mb-4" data-translate="profile_counter_subtitle">Selecciona l'últim dia de consum per portar un registre dels teus dies guanyats a l'addicció.</p>
                     <div class="max-w-xs space-y-3">
-                        <label for="last-consumption-date" class="font-medium">El meu últim dia de consum va ser:</label>
-                        <input type="date" id="last-consumption-date">
+                        <label for="last-consumption-date" class="font-medium" data-translate="profile_counter_label">El meu últim dia de consum va ser:</label>
+                        <input type="date" id="last-consumption-date" name="last-consumption-date">
                         <div class="bg-green-100 text-green-800 text-center p-4 rounded-lg">
-                            <p class="text-lg">Dies guanyats a l'addicció</p>
+                            <p class="text-lg" data-translate="profile_counter_days_won">Dies guanyats a l'addicció</p>
                             <p id="days-won-counter" class="text-4xl font-bold">0</p>
                         </div>
                     </div>
@@ -344,30 +354,30 @@
             </div>
 
             <div class="card w-full">
-                <h2 class="text-2xl font-bold mb-4">Historial de manuals</h2>
-                <p class="text-slate-500 mb-4">Aquí pots veure tots els manuals que has anat guardant. Pots imprimir-ne o esborrar-ne qualsevol per veure la teva evolució.</p>
+                <h2 class="text-2xl font-bold mb-4" data-translate="history_title">Historial de manuals</h2>
+                <p class="text-slate-500 mb-4" data-translate="history_subtitle">Aquí pots veure tots els manuals que has anat guardant. Pots imprimir-ne o esborrar-ne qualsevol per veure la teva evolució.</p>
                 <div id="manuals-history-list" class="space-y-3">
                     <!-- L'historial es carregarà aquí -->
                 </div>
             </div>
 
             <div class="card w-full">
-                <h2 class="text-2xl font-bold mb-4">Contacte ACENCAS Prevenció Activa</h2>
-                <p class="text-slate-500 mb-6">Estem aquí per ajudar-te. No dubtis a contactar amb nosaltres.</p>
+                <h2 class="text-2xl font-bold mb-4" data-translate="contact_title">Contacte ACENCAS Prevenció Activa</h2>
+                <p class="text-slate-500 mb-6" data-translate="contact_subtitle">Estem aquí per ajudar-te. No dubtis a contactar amb nosaltres.</p>
                 <div class="space-y-4">
                     <p class="flex items-center gap-3"><i data-lucide="map-pin" class="w-5 h-5 text-orange-500"></i>Carrer Sicília nº 253, Princ. 2ª, 08025 Barcelona</p>
                     <p class="flex items-center gap-3"><i data-lucide="globe" class="w-5 h-5 text-orange-500"></i><a href="https://acencasprevencio.org" target="_blank" class="text-orange-600 hover:underline">acencasprevencio.org</a></p>
                     <div class="grid md:grid-cols-2 gap-4 pt-4 border-t">
-                        <a href="mailto:admin@acencasprevencio.org" class="btn-secondary btn-green w-full"><i data-lucide="mail" class="w-5 h-5 mr-2"></i>Enviar correu</a>
-                        <a href="tel:+34931413814" class="btn-secondary btn-green w-full"><i data-lucide="phone" class="w-5 h-5 mr-2"></i>Trucar a APA (931 413 814)</a>
-                        <a href="tel:+34676692143" class="btn-secondary btn-green w-full"><i data-lucide="smartphone" class="w-5 h-5 mr-2"></i>Trucar a Francesc Perendreu</a>
-                        <a href="tel:900900540" class="btn-secondary btn-green w-full"><i data-lucide="phone-call" class="w-5 h-5 mr-2"></i>Trucar a Línia Verda (900 900 540)</a>
+                        <a href="mailto:admin@acencasprevencio.org" class="btn-secondary btn-green w-full"><i data-lucide="mail" class="w-5 h-5 mr-2"></i><span data-translate="contact_email">Enviar correu</span></a>
+                        <a href="tel:+34931413814" class="btn-secondary btn-green w-full"><i data-lucide="phone" class="w-5 h-5 mr-2"></i><span data-translate="contact_phone_apa">Trucar a APA (931 413 814)</span></a>
+                        <a href="tel:+34676692143" class="btn-secondary btn-green w-full"><i data-lucide="smartphone" class="w-5 h-5 mr-2"></i><span data-translate="contact_phone_francesc">Trucar a Francesc Perendreu</span></a>
+                        <a href="tel:900900540" class="btn-secondary btn-green w-full"><i data-lucide="phone-call" class="w-5 h-5 mr-2"></i><span data-translate="contact_phone_greenline">Trucar a Línia Verda (900 900 540)</span></a>
                     </div>
                 </div>
             </div>
 
             <div class="mt-8 flex gap-4">
-                <button data-page="dashboard-page" class="btn-primary">Tornar al manual actiu</button>
+                <button data-page="dashboard-page" class="btn-primary" data-translate="back_to_manual">Tornar al manual actiu</button>
             </div>
         </div>
     </div>
@@ -390,7 +400,7 @@
             signInWithEmailAndPassword, 
             signOut 
         } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
-        import { getFirestore, doc, setDoc, getDoc, onSnapshot, updateDoc, addDoc, collection, query, getDocs, orderBy, arrayUnion, arrayRemove, deleteDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getFirestore, doc, setDoc, getDoc, onSnapshot, updateDoc, addDoc, collection, query, getDocs, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
         import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-messaging.js";
 
         // --- CONFIGURACIÓ DE FIREBASE ---
@@ -410,16 +420,164 @@
         const db = getFirestore(app);
         const messaging = getMessaging(app);
 
+        // --- SISTEMA DE TRADUCCIÓ ---
+        const translations = {
+            ca: {
+                landing_title1: "Eina de prevenció activa",
+                landing_title2: "ACENCAS Prevenció Activa",
+                landing_subtitle: "El teu espai personal i segur per entendre't millor i construir un camí de recuperació sòlid i conscient.",
+                landing_button: "Entrar o Registrar-se",
+                login_title: "Accedeix al teu compte",
+                login_subtitle: "Introdueix el teu correu i contrasenya.",
+                auth_email: "Correu electrònic",
+                auth_password: "Contrasenya",
+                auth_login_button: "Iniciar sessió",
+                auth_no_account: "No tens un compte?",
+                auth_register_link: "Registra't",
+                register_title: "Crea un nou compte",
+                register_subtitle: "Introdueix el teu correu i una contrasenya segura.",
+                auth_register_button: "Registrar-se",
+                auth_has_account: "Ja tens un compte?",
+                auth_login_link: "Inicia sessió",
+                sidebar_install: "Instal·lar App",
+                sidebar_archive: "Guardar i arxivar manual",
+                sidebar_profile: "El meu perfil i historial",
+                sidebar_logout: "Tancar sessió",
+                mobile_menu_title: "Menú",
+                profile_title: "El meu perfil",
+                profile_name: "Nom",
+                profile_surname: "Cognoms",
+                profile_phone: "Telèfon",
+                profile_save_button: "Desar canvis del perfil",
+                profile_notifications_title: "Notificacions",
+                profile_notifications_text: "Vull rebre notificacions i recordatoris.",
+                profile_notifications_button: "Activar notificacions",
+                profile_counter_title: "Comptador de dies",
+                profile_counter_subtitle: "Selecciona l'últim dia de consum per portar un registre dels teus dies guanyats a l'addicció.",
+                profile_counter_label: "El meu últim dia de consum va ser:",
+                profile_counter_days_won: "Dies guanyats a l'addicció",
+                history_title: "Historial de manuals",
+                history_subtitle: "Aquí pots veure tots els manuals que has anat guardant. Pots imprimir-ne o esborrar-ne qualsevol per veure la teva evolució.",
+                contact_title: "Contacte ACENCAS Prevenció Activa",
+                contact_subtitle: "Estem aquí per ajudar-te. No dubtis a contactar amb nosaltres.",
+                contact_email: "Enviar correu",
+                contact_phone_apa: "Trucar a APA (931 413 814)",
+                contact_phone_francesc: "Trucar a Francesc Perendreu",
+                contact_phone_greenline: "Trucar a Línia Verda (900 900 540)",
+                back_to_manual: "Tornar al manual actiu",
+                // Claus de traducció per a les seccions
+                nav_my_manual: "El meu manual",
+                nav_practical_manual: "Manual pràctic",
+                nav_theoretical_framework: "Marc teòric",
+                nav_my_diary: "El meu diari",
+                section_title_manual_intro: "El meu manual de prevenció de recaigudes",
+                section_title_partida: "El meu punt de partida",
+                section_title_patrons: "Comprenent els meus patrons",
+                section_title_eines: "La meva caixa d'eines",
+                section_title_suport: "Construint el meu sistema de suport",
+                section_title_futur: "Mantenint el progrés i mirant cap al futur",
+                section_title_diary: "El meu diari",
+            },
+            es: {
+                landing_title1: "Herramienta de prevención activa",
+                landing_title2: "ACENCAS Prevención Activa",
+                landing_subtitle: "Tu espacio personal y seguro para entenderte mejor y construir un camino de recuperación sólido y consciente.",
+                landing_button: "Entrar o Registrarse",
+                login_title: "Accede a tu cuenta",
+                login_subtitle: "Introduce tu correo y contraseña.",
+                auth_email: "Correo electrónico",
+                auth_password: "Contraseña",
+                auth_login_button: "Iniciar sesión",
+                auth_no_account: "¿No tienes una cuenta?",
+                auth_register_link: "Regístrate",
+                register_title: "Crea una nueva cuenta",
+                register_subtitle: "Introduce tu correo y una contraseña segura.",
+                auth_register_button: "Registrarse",
+                auth_has_account: "¿Ya tienes una cuenta?",
+                auth_login_link: "Inicia sesión",
+                sidebar_install: "Instalar App",
+                sidebar_archive: "Guardar y archivar manual",
+                sidebar_profile: "Mi perfil e historial",
+                sidebar_logout: "Cerrar sesión",
+                mobile_menu_title: "Menú",
+                profile_title: "Mi perfil",
+                profile_name: "Nombre",
+                profile_surname: "Apellidos",
+                profile_phone: "Teléfono",
+                profile_save_button: "Guardar cambios del perfil",
+                profile_notifications_title: "Notificaciones",
+                profile_notifications_text: "Quiero recibir notificaciones y recordatorios.",
+                profile_notifications_button: "Activar notificaciones",
+                profile_counter_title: "Contador de días",
+                profile_counter_subtitle: "Selecciona el último día de consumo para llevar un registro de tus días ganados a la adicción.",
+                profile_counter_label: "Mi último día de consumo fue:",
+                profile_counter_days_won: "Días ganados a la adicción",
+                history_title: "Historial de manuales",
+                history_subtitle: "Aquí puedes ver todos los manuales que has ido guardando. Puedes imprimir o borrar cualquiera para ver tu evolución.",
+                contact_title: "Contacto ACENCAS Prevención Activa",
+                contact_subtitle: "Estamos aquí para ayudarte. No dudes en contactar con nosotros.",
+                contact_email: "Enviar correo",
+                contact_phone_apa: "Llamar a APA (931 413 814)",
+                contact_phone_francesc: "Llamar a Francesc Perendreu",
+                contact_phone_greenline: "Llamar a Línea Verde (900 900 540)",
+                back_to_manual: "Volver al manual activo",
+                // Claus de traducció per a les seccions
+                nav_my_manual: "Mi manual",
+                nav_practical_manual: "Manual práctico",
+                nav_theoretical_framework: "Marco teórico",
+                nav_my_diary: "Mi diario",
+                section_title_manual_intro: "Mi manual de prevención de recaídas",
+                section_title_partida: "Mi punto de partida",
+                section_title_patrons: "Comprendiendo mis patrones",
+                section_title_eines: "Mi caja de herramientas",
+                section_title_suport: "Construyendo mi sistema de apoyo",
+                section_title_futur: "Manteniendo el progreso y mirando hacia el futuro",
+                section_title_diary: "Mi diario",
+            }
+        };
+
+        let currentLanguage = 'ca';
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            document.documentElement.lang = lang;
+            
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang] && translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
+
+            document.querySelectorAll('[data-translate-placeholder]').forEach(element => {
+                const key = element.getAttribute('data-translate-placeholder');
+                if (translations[lang] && translations[lang][key]) {
+                    element.placeholder = translations[lang][key];
+                }
+            });
+
+            // Actualitzar botons actius
+            document.querySelectorAll('.lang-selector button').forEach(button => {
+                if (button.dataset.lang === lang) {
+                    button.classList.add('active');
+                } else {
+                    button.classList.remove('active');
+                }
+            });
+        }
+
+
         // --- Espera que el DOM estigui completament carregat per executar el codi ---
         document.addEventListener('DOMContentLoaded', () => {
             // --- Variables Globals ---
             let currentUserId = null;
             let activeManualId = null;
             let userDataUnsubscribe; 
+            let diaryUnsubscribe;
             let appData = {};
             let isLoginMode = true; // Controla si estem en mode login o registre
             const allValues = ['Honestedat', 'Connexió', 'Respecte', 'Creativitat', 'Aprenentatge', 'Salut', 'Seguretat', 'Aventura', 'Compassió', 'Llibertat', 'Família', 'Amistat', 'Creixement', 'Pau interior', 'Diversió'];
-            const manualSectionsOrder = ['manual_intro', 'partida', 'patrons', 'eines', 'suport', 'futur'];
+            const manualSectionsOrder = ['manual_intro', 'partida', 'patrons', 'eines', 'suport', 'futur', 'diari'];
 
             // --- Elements del DOM d'Autenticació ---
             const authForm = document.getElementById('auth-form');
@@ -483,18 +641,19 @@
                 authForm.reset();
 
                 if (isLoginMode) {
-                    authTitle.textContent = 'Accedeix al teu compte';
-                    authSubtitle.textContent = 'Introdueix el teu correu i contrasenya.';
-                    authSubmitButton.textContent = 'Iniciar sessió';
-                    authToggleText.textContent = 'No tens un compte?';
-                    authToggleLink.textContent = "Registra't";
+                    document.getElementById('auth-title').setAttribute('data-translate', 'login_title');
+                    document.getElementById('auth-subtitle').setAttribute('data-translate', 'login_subtitle');
+                    document.getElementById('auth-submit-button').setAttribute('data-translate', 'auth_login_button');
+                    document.getElementById('auth-toggle-text').setAttribute('data-translate', 'auth_no_account');
+                    document.getElementById('auth-toggle-link').setAttribute('data-translate', 'auth_register_link');
                 } else {
-                    authTitle.textContent = 'Crea un nou compte';
-                    authSubtitle.textContent = 'Introdueix el teu correu i una contrasenya segura.';
-                    authSubmitButton.textContent = 'Registrar-se';
-                    authToggleText.textContent = 'Ja tens un compte?';
-                    authToggleLink.textContent = 'Inicia sessió';
+                    document.getElementById('auth-title').setAttribute('data-translate', 'register_title');
+                    document.getElementById('auth-subtitle').setAttribute('data-translate', 'register_subtitle');
+                    document.getElementById('auth-submit-button').setAttribute('data-translate', 'auth_register_button');
+                    document.getElementById('auth-toggle-text').setAttribute('data-translate', 'auth_has_account');
+                    document.getElementById('auth-toggle-link').setAttribute('data-translate', 'auth_login_link');
                 }
+                setLanguage(currentLanguage);
             };
             
             authToggleLink.addEventListener('click', (e) => {
@@ -579,6 +738,7 @@
                 } else {
                     currentUserId = null;
                     if (userDataUnsubscribe) userDataUnsubscribe();
+                    if (diaryUnsubscribe) diaryUnsubscribe();
                     showPage('landing-page');
                 }
             });
@@ -705,6 +865,7 @@
                     eines: { title: "Caixa d'eines", icon: "box", content: getEinesContent, type: 'manual' },
                     suport: { title: "Sistema de suport", icon: "users", content: getSupportContent, type: 'manual' },
                     futur: { title: "Mirant cap al futur", icon: "trending-up", content: getFuturContent, type: 'manual' },
+                    diari: { title: "El meu diari", icon: "book-marked", content: getDiariContent, type: 'manual' },
                     teoria_intro: { title: "Introducció teòrica", icon: "book-open", content: getTeoriaIntroContent, type: 'teoria' },
                     definicio: { title: "Què són les addiccions?", icon: "help-circle", content: getDefinicioContent, type: 'teoria' },
                     marlatt: { title: "El model de recaiguda", icon: "git-merge", content: getMarlattContent, type: 'teoria' },
@@ -715,12 +876,12 @@
 
                 let navHTML = `
                     <ul>
-                        <li><a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" data-section="manual_intro"><i data-lucide="book-open" class="w-5 h-5"></i><span>El meu manual</span></a></li>
-                        <li class="mt-4"><h2 class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Manual pràctic</h2></li>
+                        <li><a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" data-section="manual_intro"><i data-lucide="book-open" class="w-5 h-5"></i><span data-translate="nav_my_manual">${sections.manual_intro.title}</span></a></li>
+                        <li class="mt-4"><h2 class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider" data-translate="nav_practical_manual">Manual pràctic</h2></li>
                         <ul class="mt-1 space-y-1">
-                            ${manualSectionsOrder.filter(k => k !== 'manual_intro').map(key => `<li><a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" data-section="${key}"><i data-lucide="${sections[key].icon}" class="w-5 h-5"></i><span>${sections[key].title}</span></a></li>`).join('')}
+                            ${manualSectionsOrder.filter(k => k !== 'manual_intro').map(key => `<li><a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" data-section="${key}"><i data-lucide="${sections[key].icon}" class="w-5 h-5"></i><span data-translate="nav_${key.replace('manual_','')}">${sections[key].title}</span></a></li>`).join('')}
                         </ul>
-                        <li class="mt-4"><h2 class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider">Marc teòric</h2></li>
+                        <li class="mt-4"><h2 class="px-3 text-xs font-semibold text-slate-400 uppercase tracking-wider" data-translate="nav_theoretical_framework">Marc teòric</h2></li>
                         <ul class="mt-1 space-y-1">
                              ${Object.keys(sections).filter(k => sections[k].type === 'teoria').map(key => `<li><a href="#" class="nav-link flex items-center gap-3 px-3 py-2.5 rounded-lg text-slate-600 hover:bg-slate-100 transition-colors" data-section="${key}"><i data-lucide="${sections[key].icon}" class="w-5 h-5"></i><span>${sections[key].title}</span></a></li>`).join('')}
                         </ul>
@@ -747,20 +908,21 @@
                 });
 
                 lucide.createIcons();
+                setLanguage(currentLanguage);
             }
             
             // --- Plantilles de Contingut HTML ---
             function getSectionFooter(currentSectionKey) {
                 const currentIndex = manualSectionsOrder.indexOf(currentSectionKey);
-                if (currentIndex === -1) return ''; // Not a manual section
+                if (currentIndex === -1 || currentSectionKey === 'diari') return ''; // No footer for diary or non-manual sections
 
                 if (currentIndex === 0) { // First section
                     const nextSectionKey = manualSectionsOrder[currentIndex + 1];
                     return `<footer class="mt-8 pt-6 border-t"><button data-next-section="${nextSectionKey}" class="btn-primary next-section-btn">Comença el teu manual de prevenció de recaigudes <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i></button></footer>`;
-                } else if (currentIndex < manualSectionsOrder.length - 1) { // Middle sections
+                } else if (currentIndex < manualSectionsOrder.length - 2) { // Middle sections (changed length check for diary)
                     const nextSectionKey = manualSectionsOrder[currentIndex + 1];
                     return `<footer class="mt-8 pt-6 border-t"><button data-next-section="${nextSectionKey}" class="btn-primary next-section-btn">Continua a la següent secció <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i></button></footer>`;
-                } else { // Last section
+                } else { // Last section before diary
                     return `<footer class="mt-8 pt-6 border-t"><button id="save-and-print-btn" class="btn-primary"><i data-lucide="printer" class="w-5 h-5 mr-2"></i>Guardar i imprimir manual</button></footer>`;
                 }
             }
@@ -768,7 +930,7 @@
             function getManualIntroContent() { 
                 return `
                     <div class="card">
-                        <h1 class="section-title">El meu manual de prevenció de recaigudes</h1>
+                        <h1 class="section-title" data-translate="section_title_manual_intro">El meu manual de prevenció de recaigudes</h1>
                         <p class="text-lg text-slate-600 mb-6 leading-relaxed">Benvingut/da. Aquest no és un manual qualsevol. És un espai viu, una eina per a tu. Aquí et convertiràs en l'expert/a de la teva pròpia recuperació.</p>
                         <div class="bg-orange-50 border-l-4 border-orange-400 text-orange-800 p-4 rounded-r-lg mb-8">
                             <div class="flex">
@@ -793,12 +955,12 @@
             
             function getPartidaContent() {
                 return `
-                    <h1 class="section-title">El meu punt de partida</h1>
+                    <h1 class="section-title" data-translate="section_title_partida">El meu punt de partida</h1>
                     <div class="card mb-6">
                         <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="sparkles" class="w-6 h-6 text-orange-500"></i>Per què vull canviar?</h2>
                         <p class="text-slate-600 mb-4">Reflexiona sobre les teves raons més profundes. No només el que vols evitar, sinó allò que vols construir. Quina vida vols viure?</p>
                         <div class="flex gap-4 mb-4">
-                            <input id="motivation-input" type="text" placeholder="Escriu una motivació..." class="flex-grow p-2 border rounded-lg">
+                            <input id="motivation-input" name="motivation-input" type="text" placeholder="Escriu una motivació..." class="flex-grow p-2 border rounded-lg">
                             <button id="add-motivation-button" class="btn-primary px-6">Afegir</button>
                         </div>
                         <div id="motivations-list" class="space-y-2"></div>
@@ -815,14 +977,14 @@
 
             function getPatronsContent() {
                 return `
-                    <h1 class="section-title">Comprenent els meus patrons</h1>
+                    <h1 class="section-title" data-translate="section_title_patrons">Comprenent els meus patrons</h1>
                     <div class="card mb-6">
                         <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="alert-triangle" class="w-6 h-6 text-red-500"></i>Els meus senyals d'alerta</h2>
                         <p class="text-slate-600 mb-4">Reconèixer els teus desencadenants és el primer pas per gestionar-los. Afegeix les situacions, emocions o sensacions que activen el teu impuls.</p>
                         <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-                            <input id="trigger-external" type="text" placeholder="Desencadenant extern (lloc, persona...)" class="p-2 border rounded-lg">
-                            <input id="trigger-internal" type="text" placeholder="Desencadenant intern (emoció, pensament...)" class="p-2 border rounded-lg">
-                            <input id="trigger-physical" type="text" placeholder="Senyal físic (nus a l'estómac...)" class="p-2 border rounded-lg">
+                            <input id="trigger-external" name="trigger-external" type="text" placeholder="Desencadenant extern (lloc, persona...)" class="p-2 border rounded-lg">
+                            <input id="trigger-internal" name="trigger-internal" type="text" placeholder="Desencadenant intern (emoció, pensament...)" class="p-2 border rounded-lg">
+                            <input id="trigger-physical" name="trigger-physical" type="text" placeholder="Senyal físic (nus a l'estómac...)" class="p-2 border rounded-lg">
                         </div>
                         <button id="add-trigger-button" class="btn-primary w-full">Afegir senyal d'alerta</button>
                         <div id="triggers-list" class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
@@ -831,7 +993,7 @@
                         <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="message-square-warning" class="w-6 h-6 text-amber-500"></i>Els meus pensaments trampa</h2>
                         <p class="text-slate-600 mb-4">Identifica els pensaments que et donen "permís" per caure. A la següent secció, aprendrem a respondre'ls.</p>
                         <div class="flex gap-4 mb-4">
-                            <input id="trap-thought-input" type="text" placeholder="Escriu un pensament trampa..." class="flex-grow p-2 border rounded-lg">
+                            <input id="trap-thought-input" name="trap-thought-input" type="text" placeholder="Escriu un pensament trampa..." class="flex-grow p-2 border rounded-lg">
                             <button id="add-trap-thought-button" class="btn-primary px-6">Afegir</button>
                         </div>
                         <div id="trap-thoughts-list"></div>
@@ -842,7 +1004,7 @@
             
             function getEinesContent() { 
                 return `
-                    <h1 class="section-title">La meva caixa d'eines</h1>
+                    <h1 class="section-title" data-translate="section_title_eines">La meva caixa d'eines</h1>
                     <div class="card mb-6">
                         <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="brain-circuit" class="w-6 h-6 text-orange-500"></i>Debatent amb els pensaments trampa</h2>
                         <p class="text-slate-600 mb-4">Ara, torna als teus pensaments trampa i construeix una resposta més útil i realista per a cadascun. Fes-te aquestes preguntes:</p>
@@ -884,14 +1046,14 @@
 
             function getSupportContent() {
                 return `
-                    <h1 class="section-title">Construint el meu sistema de suport</h1>
+                    <h1 class="section-title" data-translate="section_title_suport">Construint el meu sistema de suport</h1>
                     <div class="card mb-6">
                         <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="users" class="w-6 h-6 text-orange-500"></i>La meva xarxa de suport</h2>
                         <p class="text-slate-600 mb-4">Identifica les persones i recursos que et poden ajudar. Sigues específic sobre com et poden ajudar.</p>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                            <input id="support-name" type="text" placeholder="Nom (amic, familiar, terapeuta...)" class="p-2 border rounded-lg">
-                            <input id="support-contact" type="text" placeholder="Contacte (telèfon, email...)" class="p-2 border rounded-lg">
-                            <input id="support-role" type="text" placeholder="Com em pot ajudar?" class="md:col-span-2 p-2 border rounded-lg">
+                            <input id="support-name" name="support-name" type="text" placeholder="Nom (amic, familiar, terapeuta...)" class="p-2 border rounded-lg">
+                            <input id="support-contact" name="support-contact" type="text" placeholder="Contacte (telèfon, email...)" class="p-2 border rounded-lg">
+                            <input id="support-role" name="support-role" type="text" placeholder="Com em pot ajudar?" class="md:col-span-2 p-2 border rounded-lg">
                         </div>
                         <button id="add-support-button" class="btn-primary w-full">Afegir a la xarxa</button>
                         <div id="support-list" class="mt-6 grid grid-cols-1 md:grid-cols-2 gap-4"></div>
@@ -901,20 +1063,20 @@
                         <p class="text-slate-600 mb-4">Crea una "targeta de crisi" simple i directa. Omple els camps i fes-li una foto per portar-la sempre al mòbil.</p>
                         <div id="crisis-plan-card" class="bg-emerald-50 border-2 border-dashed border-emerald-300 p-6 rounded-xl space-y-4">
                             <div class="space-y-2">
-                                <label class="font-semibold text-emerald-800">1. Reconeixement: "Quan noti..."</label>
-                                <input id="crisis-signal" type="text" placeholder="...la sensació d'inquietud a l'estómac." value="${appData.crisisPlan?.signal || ''}">
+                                <label for="crisis-signal" class="font-semibold text-emerald-800">1. Reconeixement: "Quan noti..."</label>
+                                <input id="crisis-signal" name="crisis-signal" type="text" placeholder="...la sensació d'inquietud a l'estómac." value="${appData.crisisPlan?.signal || ''}">
                             </div>
                             <div class="space-y-2">
-                                <label class="font-semibold text-emerald-800">2. Acció immediata: "El primer que faré serà..."</label>
-                                <input id="crisis-action" type="text" placeholder="...sortir a caminar 15 minuts." value="${appData.crisisPlan?.action || ''}">
+                                <label for="crisis-action" class="font-semibold text-emerald-800">2. Acció immediata: "El primer que faré serà..."</label>
+                                <input id="crisis-action" name="crisis-action" type="text" placeholder="...sortir a caminar 15 minuts." value="${appData.crisisPlan?.action || ''}">
                             </div>
                             <div class="space-y-2">
-                                <label class="font-semibold text-emerald-800">3. Contacte: "Si l'impuls no baixa, trucaré a..."</label>
-                                <input id="crisis-contact" type="text" placeholder="...en Pau (6XX XXX XXX)." value="${appData.crisisPlan?.contact || ''}">
+                                <label for="crisis-contact" class="font-semibold text-emerald-800">3. Contacte: "Si l'impuls no baixa, trucaré a..."</label>
+                                <input id="crisis-contact" name="crisis-contact" type="text" placeholder="...en Pau (6XX XXX XXX)." value="${appData.crisisPlan?.contact || ''}">
                             </div>
                              <div class="space-y-2">
-                                <label class="font-semibold text-emerald-800">4. Recordatori: "Això m'acosta al meu valor de..."</label>
-                                <input id="crisis-value" type="text" placeholder="...cuidar la meva salut." value="${appData.crisisPlan?.value || ''}">
+                                <label for="crisis-value" class="font-semibold text-emerald-800">4. Recordatori: "Això m'acosta al meu valor de..."</label>
+                                <input id="crisis-value" name="crisis-value" type="text" placeholder="...cuidar la meva salut." value="${appData.crisisPlan?.value || ''}">
                             </div>
                             <button id="save-crisis-plan" class="btn-primary mt-2 !bg-emerald-600 hover:!bg-emerald-700">Guardar pla</button>
                         </div>
@@ -925,11 +1087,11 @@
 
             function getFuturContent() {
                 return `
-                    <h1 class="section-title">Mantenint el progrés i mirant cap al futur</h1>
+                    <h1 class="section-title" data-translate="section_title_futur">Mantenint el progrés i mirant cap al futur</h1>
                     <div class="card mb-6">
                         <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="calendar-check" class="w-6 h-6 text-orange-500"></i>La meva revisió setmanal</h2>
                         <p class="text-slate-600 mb-4">Dedica un moment cada setmana per reflexionar sobre el teu progrés, aprendre dels reptes i ajustar el teu pla.</p>
-                        <textarea id="weekly-review" class="w-full h-48 p-4 border rounded-lg" placeholder="Què ha funcionat bé? Què podria millorar? He fet passos cap als meus valors?">${appData.weeklyReview || ''}</textarea>
+                        <textarea id="weekly-review" name="weekly-review" class="w-full h-48 p-4 border rounded-lg" placeholder="Què ha funcionat bé? Què podria millorar? He fet passos cap als meus valors?">${appData.weeklyReview || ''}</textarea>
                         <button id="save-weekly-review" class="btn-primary mt-4">Guardar revisió</button>
                     </div>
                      <div class="card mb-6">
@@ -948,11 +1110,29 @@
                         <h2 class="text-2xl font-semibold mb-4 flex items-center gap-3"><i data-lucide="award" class="w-6 h-6 text-amber-500"></i>Diari d'èxits i gratitud</h2>
                         <p class="text-slate-600 mb-4">Reconeix els teus èxits, per petits que siguin, i practica la gratitud. Això canvia la perspectiva.</p>
                         <div class="flex gap-4 mb-4">
-                            <input id="gratitude-input" type="text" placeholder="Escriu un petit èxit o alguna cosa per la qual estàs agraït/da..." class="flex-grow p-2 border rounded-lg">
+                            <input id="gratitude-input" name="gratitude-input" type="text" placeholder="Escriu un petit èxit o alguna cosa per la qual estàs agraït/da..." class="flex-grow p-2 border rounded-lg">
                             <button id="add-gratitude-button" class="btn-primary px-6">Afegir</button>
                         </div>
                         <div id="gratitude-list" class="space-y-2"></div>
                         ${getSectionFooter('futur')}
+                    </div>
+                `;
+            }
+            
+            function getDiariContent() {
+                return `
+                    <h1 class="section-title" data-translate="section_title_diary">El meu diari</h1>
+                    <div class="card mb-6">
+                        <h2 class="text-2xl font-semibold mb-4">Nova entrada</h2>
+                        <p class="text-slate-600 mb-4">Escriu sobre el teu dia, els teus pensaments, sentiments o qualsevol cosa que vulguis registrar.</p>
+                        <textarea id="diary-entry-textarea" name="diary-entry-textarea" class="w-full h-48 p-4 border rounded-lg" placeholder="Com ha anat el dia d'avui?"></textarea>
+                        <button id="save-diary-entry-button" class="btn-primary mt-4">Desar entrada</button>
+                    </div>
+                    <div class="card">
+                        <h2 class="text-2xl font-semibold mb-4">Entrades anteriors</h2>
+                        <div id="diary-history-list" class="space-y-4">
+                            <p>Carregant entrades...</p>
+                        </div>
                     </div>
                 `;
             }
@@ -1097,6 +1277,27 @@
                 if (!currentUserId || !activeManualId) return;
                 const manualDocRef = doc(db, "users", currentUserId, "manuals", activeManualId);
 
+                // Diari
+                const saveDiaryButton = document.getElementById('save-diary-entry-button');
+                if (saveDiaryButton) {
+                    renderDiaryEntries();
+                    saveDiaryButton.onclick = async () => {
+                        const textarea = document.getElementById('diary-entry-textarea');
+                        const text = textarea.value.trim();
+                        if (text) {
+                            try {
+                                await addDoc(collection(db, `users/${currentUserId}/diaryEntries`), {
+                                    text: text,
+                                    createdAt: serverTimestamp()
+                                });
+                                textarea.value = '';
+                            } catch (error) {
+                                console.error("Error afegint l'entrada del diari:", error);
+                            }
+                        }
+                    };
+                }
+
                 // Motivations
                 const addMotivationButton = document.getElementById('add-motivation-button');
                 if (addMotivationButton) {
@@ -1225,6 +1426,35 @@
             }
             
             // --- Funcions de Renderitzat Específiques ---
+            function renderDiaryEntries() {
+                const historyList = document.getElementById('diary-history-list');
+                if (!historyList) return;
+
+                const q = query(collection(db, `users/${currentUserId}/diaryEntries`), orderBy("createdAt", "desc"));
+                
+                if (diaryUnsubscribe) diaryUnsubscribe(); 
+
+                diaryUnsubscribe = onSnapshot(q, (querySnapshot) => {
+                    if (querySnapshot.empty) {
+                        historyList.innerHTML = '<p class="text-slate-500">Encara no has escrit cap entrada al diari.</p>';
+                        return;
+                    }
+                    historyList.innerHTML = '';
+                    querySnapshot.forEach((doc) => {
+                        const entry = doc.data();
+                        const date = entry.createdAt?.toDate().toLocaleDateString('ca-ES', { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' }) || 'Data no disponible';
+                        
+                        const item = document.createElement('div');
+                        item.className = 'bg-slate-50 p-4 rounded-lg border';
+                        item.innerHTML = `
+                            <p class="text-sm font-semibold text-slate-600 mb-2">${date}</p>
+                            <p class="text-slate-800 whitespace-pre-wrap">${entry.text}</p>
+                        `;
+                        historyList.appendChild(item);
+                    });
+                });
+            }
+
             function renderMotivations() {
                 const listDiv = document.getElementById('motivations-list');
                 if (!listDiv) return;
@@ -1290,7 +1520,7 @@
                     div.className = 'p-4 bg-slate-50 rounded-lg border mb-4';
                     div.innerHTML = `
                         <p class="font-semibold text-slate-800 mb-2">${item.thought}</p>
-                        <textarea class="w-full p-2 border rounded-lg text-sm" placeholder="Escriu aquí una resposta alternativa i més útil...">${item.reframe || ''}</textarea>
+                        <textarea id="reframe-${item.id}" name="reframe-${item.id}" class="w-full p-2 border rounded-lg text-sm" placeholder="Escriu aquí una resposta alternativa i més útil...">${item.reframe || ''}</textarea>
                         <button class="btn-primary !bg-slate-600 hover:!bg-slate-700 text-xs px-3 py-1.5 mt-2">Guardar resposta</button>
                     `;
                     div.querySelector('button').onclick = () => {
@@ -1379,11 +1609,11 @@
                     container.className = 'mt-6 p-4 bg-slate-50 rounded-lg border';
                     container.innerHTML = `
                         <h3 class="font-semibold text-lg text-orange-600">${value}</h3>
-                        <p class="text-sm text-slate-500 mb-2">Què significa aquest valor per a tu?</p>
-                        <textarea class="w-full p-2 border rounded-lg text-sm mb-4" data-value="${value}" placeholder="Exemple: Per a mi, la connexió significa estar present...">${detail.definition || ''}</textarea>
+                        <label for="value-def-${value}" class="text-sm text-slate-500 mb-2">Què significa aquest valor per a tu?</label>
+                        <textarea id="value-def-${value}" name="value-def-${value}" class="w-full p-2 border rounded-lg text-sm mb-4" data-value="${value}" placeholder="Exemple: Per a mi, la connexió significa estar present...">${detail.definition || ''}</textarea>
                         <div class="grid md:grid-cols-2 gap-4 text-sm">
-                            <div><label class="font-medium">Importància (0-10): <span class="font-bold text-orange-600">${detail.importance}</span></label><input type="range" min="0" max="10" value="${detail.importance}" class="w-full accent-orange-500" data-value="${value}" data-type="importance"></div>
-                            <div><label class="font-medium">Alineació recent (0-10): <span class="font-bold text-orange-600">${detail.alignment}</span></label><input type="range" min="0" max="10" value="${detail.alignment}" class="w-full accent-orange-500" data-value="${value}" data-type="alignment"></div>
+                            <div><label for="value-imp-${value}" class="font-medium">Importància (0-10): <span class="font-bold text-orange-600">${detail.importance}</span></label><input type="range" id="value-imp-${value}" name="value-imp-${value}" min="0" max="10" value="${detail.importance}" class="w-full accent-orange-500" data-value="${value}" data-type="importance"></div>
+                            <div><label for="value-ali-${value}" class="font-medium">Alineació recent (0-10): <span class="font-bold text-orange-600">${detail.alignment}</span></label><input type="range" id="value-ali-${value}" name="value-ali-${value}" min="0" max="10" value="${detail.alignment}" class="w-full accent-orange-500" data-value="${value}" data-type="alignment"></div>
                         </div>
                     `;
                     container.addEventListener('input', debounce((e) => {
@@ -1418,7 +1648,7 @@
                     days.forEach(day => {
                         const id = `${area}-${day}`;
                         const content = appData.selfCarePlan?.[id] || '';
-                        tableHTML += `<td class="p-1 border"><textarea class="w-full h-20 p-1 border-none rounded-md text-xs focus:ring-1 focus:ring-orange-500" data-id="${id}" placeholder="Activitat...">${content}</textarea></td>`;
+                        tableHTML += `<td class="p-1 border"><textarea id="selfcare-${id}" name="selfcare-${id}" class="w-full h-20 p-1 border-none rounded-md text-xs focus:ring-1 focus:ring-orange-500" data-id="${id}" placeholder="Activitat...">${content}</textarea></td>`;
                     });
                     tableHTML += '</tr>';
                 });
@@ -1576,7 +1806,14 @@
 
 
             // --- INICI DE L'APP ---
+            document.querySelectorAll('.lang-selector button').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    setLanguage(e.target.dataset.lang);
+                });
+            });
+
             lucide.createIcons();
+            setLanguage('ca'); // Estableix l'idioma inicial
             showPage('landing-page');
 
             // --- Lògica d'Instal·lació de la PWA ---
